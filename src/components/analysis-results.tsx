@@ -24,7 +24,7 @@ const getRiskDetails = (
     return {
       icon: <ShieldCheck className="mr-2 h-6 w-6 text-green-500" />,
       progressColor: 'bg-green-500',
-      textColor: 'text-green-700',
+      textColor: 'text-green-700 dark:text-green-400',
       level: 'Bajo',
     };
   }
@@ -32,14 +32,14 @@ const getRiskDetails = (
     return {
       icon: <AlertTriangle className="mr-2 h-6 w-6 text-yellow-500" />,
       progressColor: 'bg-yellow-500',
-      textColor: 'text-yellow-700',
+      textColor: 'text-yellow-700 dark:text-yellow-400',
       level: 'Medio',
     };
   }
   return {
     icon: <ShieldAlert className="mr-2 h-6 w-6 text-red-500" />,
     progressColor: 'bg-red-500',
-    textColor: 'text-red-700',
+    textColor: 'text-red-700 dark:text-red-400',
     level: 'Alto',
   };
 };
@@ -74,7 +74,7 @@ export function AnalysisResults({
           </div>
           <Progress
             value={results.riskAssessment.score * 10}
-            className={`h-3 [&>div]:${riskDetails.progressColor}`}
+            indicatorClassName={riskDetails.progressColor}
           />
         </CardContent>
       </Card>
