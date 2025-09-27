@@ -22,22 +22,22 @@ const getRiskDetails = (
 } => {
   if (score <= 3) {
     return {
-      icon: <ShieldCheck className="mr-2 h-6 w-6" />,
+      icon: <ShieldCheck className="mr-2 h-6 w-6 text-green-500" />,
       progressColor: 'bg-green-500',
-      textColor: 'text-green-500',
+      textColor: 'text-green-700',
     };
   }
   if (score <= 6) {
     return {
-      icon: <AlertTriangle className="mr-2 h-6 w-6" />,
+      icon: <AlertTriangle className="mr-2 h-6 w-6 text-yellow-500" />,
       progressColor: 'bg-yellow-500',
-      textColor: 'text-yellow-500',
+      textColor: 'text-yellow-700',
     };
   }
   return {
-    icon: <ShieldAlert className="mr-2 h-6 w-6" />,
+    icon: <ShieldAlert className="mr-2 h-6 w-6 text-red-500" />,
     progressColor: 'bg-red-500',
-    textColor: 'text-red-500',
+    textColor: 'text-red-700',
   };
 };
 
@@ -53,13 +53,13 @@ export function AnalysisResults({
 
   return (
     <div className="mt-8 grid gap-6">
-      <Card className="bg-primary/90 text-primary-foreground">
+      <Card>
         <CardHeader>
           <CardTitle className="flex items-center text-2xl">
             <Activity className="mr-3 h-6 w-6" />
             Evaluación de Riesgo
           </CardTitle>
-          <p className="text-primary-foreground/80">
+          <p className="text-muted-foreground pt-1">
             {results.riskAssessment.justification}
           </p>
         </CardHeader>
