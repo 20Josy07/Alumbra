@@ -1,19 +1,15 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, LogOut, BrainCircuit, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
-import { useAuth } from '@/hooks/use-auth';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import Image from 'next/image';
@@ -31,7 +27,6 @@ const resourcesLinks = [
 export function Header() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { user, logout } = useAuth();
 
   const handleScrollTo = (id: string) => {
     const element = document.getElementById(id);
@@ -47,7 +42,7 @@ export function Header() {
     <header className="fixed inset-x-0 bottom-4 z-50 mx-auto max-w-4xl">
       <div className="container mx-auto flex h-16 items-center justify-between rounded-full bg-background/80 px-4 backdrop-blur-sm border border-border/50 shadow-lg">
         <Link href="/" className="flex items-center gap-2">
-          <Image src="https://i.postimg.cc/QCys4Rbt/favicon-light.png" alt="Alumbra logo" width={28} height={28} />
+          <Image src="https://i.postimg.cc/QCys4Rbt/favicon-light.png" alt="Alumbra logo" width={32} height={32} />
           <span className="sr-only">Alumbra</span>
         </Link>
         <nav className="hidden items-center space-x-6 md:flex">
@@ -101,45 +96,6 @@ export function Header() {
           <Button asChild className="hidden sm:inline-flex rounded-full" variant="default">
             <Link href="/analizar">Probar Alumbra</Link>
           </Button>
-
-          {user && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="relative h-10 w-10 rounded-full"
-                >
-                  <Avatar className="h-10 w-10">
-                    <AvatarImage
-                      src={user.photoURL!}
-                      alt={user.displayName!}
-                    />
-                    <AvatarFallback>
-                      {user.displayName?.charAt(0)}
-                    </AvatarFallback>
-                  </Avatar>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56" align="end" forceMount>
-                <DropdownMenuLabel className="font-normal">
-                  <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">
-                      {user.displayName}
-                    </p>
-                    <p className="text-xs leading-none text-muted-foreground">
-                      {user.email}
-                    </p>
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => logout()}>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Cerrar sesión</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          )}
-
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="md:hidden">
