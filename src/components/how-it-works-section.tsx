@@ -3,24 +3,28 @@ import { ClipboardPaste, Bot, Search, Lightbulb } from 'lucide-react';
 
 const steps = [
   {
-    icon: ClipboardPaste,
-    title: '1. Pega la Conversación',
-    description: 'Simplemente copia y pega el texto de tu conversación en el campo de análisis.',
+    icon: Search,
+    title: '1. Proporciona Contexto',
+    description:
+      'Responde unas breves preguntas para dar contexto a la IA sobre la naturaleza de la conversación.',
   },
   {
-    icon: Search,
-    title: '2. Añade Contexto (Opcional)',
-    description: 'Proporciona un breve contexto opcional para ayudar a nuestra IA a ofrecer un análisis más matizado y preciso.',
+    icon: ClipboardPaste,
+    title: '2. Pega la Conversación',
+    description:
+      'Copia y pega el texto de tu conversación en el campo de análisis.',
   },
   {
     icon: Bot,
     title: '3. Analiza con IA',
-    description: 'Nuestra potente IA, impulsada por Gemini, procesa tu texto para identificar temas clave, riesgos y patrones.',
+    description:
+      'Nuestra potente IA, impulsada por Gemini, procesa tu texto para identificar temas clave, riesgos y patrones.',
   },
   {
     icon: Lightbulb,
     title: '4. Obtén Información',
-    description: 'Recibe un informe detallado con evaluaciones de riesgo, categorías de temas y recomendaciones prácticas.',
+    description:
+      'Recibe un informe detallado con evaluaciones de riesgo, categorías de temas y recomendaciones prácticas.',
   },
 ];
 

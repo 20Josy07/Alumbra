@@ -1,10 +1,12 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 export function HeroSection() {
-  const handleScroll = () => {
-    const element = document.getElementById('analysis-section');
+
+  const handleScrollToHowItWorks = () => {
+    const element = document.getElementById('how-it-works');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
@@ -22,11 +24,13 @@ export function HeroSection() {
             riesgos y proporcionar información práctica para una mejor comunicación.
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Button size="lg" onClick={handleScroll}>
-              Analizar Ahora <ArrowRight className="ml-2 h-5 w-5" />
+            <Button size="lg" asChild>
+              <Link href="/analizar">
+                Analizar Ahora <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
             </Button>
-            <Button size="lg" variant="outline" asChild>
-              <a href="#how-it-works">Aprender Más</a>
+            <Button size="lg" variant="outline" onClick={handleScrollToHowItWorks}>
+              Aprender Más
             </Button>
           </div>
         </div>

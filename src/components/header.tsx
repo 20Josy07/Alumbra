@@ -19,14 +19,6 @@ export function Header() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const handleScrollToAnalysis = () => {
-    const element = document.getElementById('analysis-section');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMobileMenuOpen(false);
-  };
-  
   const handleScrollToHowItWorks = () => {
     const element = document.getElementById('how-it-works');
     if (element) {
@@ -49,7 +41,7 @@ export function Header() {
                return (
                 <button
                   key={link.name}
-                  onClick={link.href === '/#how-it-works' ? handleScrollToHowItWorks : handleScrollToAnalysis}
+                  onClick={handleScrollToHowItWorks}
                   className={cn(
                     'text-sm font-medium text-muted-foreground transition-colors hover:text-primary'
                   )}
@@ -76,13 +68,9 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Button
-            onClick={handleScrollToAnalysis}
-            className="hidden sm:inline-flex"
-            variant="default"
-          >
-            Analizar Ahora
-          </Button>
+            <Button asChild className="hidden sm:inline-flex" variant="default">
+              <Link href="/analizar">Analizar Ahora</Link>
+            </Button>
 
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
@@ -111,7 +99,7 @@ export function Header() {
                       return (
                        <button
                          key={link.name}
-                         onClick={link.href === '/#how-it-works' ? handleScrollToHowItWorks : handleScrollToAnalysis}
+                         onClick={handleScrollToHowItWorks}
                          className={cn(
                            'text-lg font-medium text-muted-foreground transition-colors hover:text-primary text-left'
                          )}
@@ -137,12 +125,8 @@ export function Header() {
                   )
                   })}
                 </nav>
-                <Button
-                  onClick={handleScrollToAnalysis}
-                  className="mt-8 w-full"
-                  size="lg"
-                >
-                  Analizar Ahora
+                <Button asChild className="mt-8 w-full" size="lg">
+                  <Link href="/analizar" onClick={() => setIsMobileMenuOpen(false)}>Analizar Ahora</Link>
                 </Button>
               </div>
             </SheetContent>
