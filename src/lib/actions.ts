@@ -12,7 +12,7 @@ const formSchema = z.object({
     .max(5000, 'La conversación debe tener menos de 5000 caracteres.'),
   context: z
     .string()
-    .max(500, 'El contexto debe tener menos de 500 caracteres.')
+    .max(1000, 'El contexto debe tener menos de 1000 caracteres.')
     .optional(),
 });
 
