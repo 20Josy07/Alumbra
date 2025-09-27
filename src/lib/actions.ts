@@ -8,11 +8,11 @@ import { z } from 'zod';
 const formSchema = z.object({
   conversation: z
     .string()
-    .min(50, 'Conversation must be at least 50 characters long.')
-    .max(5000, 'Conversation must be less than 5000 characters.'),
+    .min(50, 'La conversación debe tener al menos 50 caracteres.')
+    .max(5000, 'La conversación debe tener menos de 5000 caracteres.'),
   context: z
     .string()
-    .max(500, 'Context must be less than 500 characters.')
+    .max(500, 'El contexto debe tener menos de 500 caracteres.')
     .optional(),
 });
 
@@ -22,7 +22,7 @@ export async function performAnalysis(input: AnalyzeConversationRiskInput) {
   if (!validatedInput.success) {
     return {
       data: null,
-      error: 'Invalid input. Please check your conversation text and try again.',
+      error: 'Entrada no válida. Por favor, revisa el texto de tu conversación e inténtalo de nuevo.',
     };
   }
 
@@ -30,11 +30,11 @@ export async function performAnalysis(input: AnalyzeConversationRiskInput) {
     const result = await analyzeConversationRisk(validatedInput.data);
     return { data: result, error: null };
   } catch (error) {
-    console.error('Analysis Error:', error);
+    console.error('Error de Análisis:', error);
     return {
       data: null,
       error:
-        'Failed to analyze conversation. The AI model may be overloaded. Please try again later.',
+        'No se pudo analizar la conversación. El modelo de IA puede estar sobrecargado. Por favor, inténtalo de nuevo más tarde.',
     };
   }
 }

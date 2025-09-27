@@ -7,39 +7,39 @@ import {
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Support & FAQ',
+  title: 'Soporte y Preguntas Frecuentes',
 };
 
 const faqs = [
   {
-    question: 'Is my data safe and private?',
+    question: '¿Están mis datos seguros y privados?',
     answer:
-      "Absolutely. We prioritize your privacy. Conversations are processed by our AI and are not stored on our servers. The analysis is a stateless transaction. For more details, please see our Privacy Policy.",
+      "Absolutamente. Priorizamos tu privacidad. Las conversaciones son procesadas por nuestra IA y no se almacenan en nuestros servidores. El análisis es una transacción sin estado. Para más detalles, por favor consulta nuestra Política de Privacidad.",
   },
   {
-    question: 'How accurate is the AI analysis?',
+    question: '¿Qué tan preciso es el análisis de la IA?',
     answer:
-      'Our AI uses advanced models like Google\'s Gemini to provide high-quality analysis. However, it\'s important to remember that it is a tool for guidance. The interpretation of nuance can vary, and the AI\'s output should be considered a starting point for your own reflection.',
+      'Nuestra IA utiliza modelos avanzados como Gemini de Google para proporcionar un análisis de alta calidad. Sin embargo, es importante recordar que es una herramienta de orientación. La interpretación de los matices puede variar, y el resultado de la IA debe considerarse un punto de partida para tu propia reflexión.',
   },
   {
-    question: 'What kind of conversations can I analyze?',
+    question: '¿Qué tipo de conversaciones puedo analizar?',
     answer:
-      'You can analyze any text-based conversation. It\'s particularly useful for professional settings like performance reviews, client negotiations, team meetings, or even personal discussions where communication clarity is key.',
+      'Puedes analizar cualquier conversación basada en texto. Es particularmente útil para entornos profesionales como evaluaciones de desempeño, negociaciones con clientes, reuniones de equipo o incluso discusiones personales donde la claridad de la comunicación es clave.',
   },
   {
-    question: 'Why is there a character limit?',
+    question: '¿Por qué hay un límite de caracteres?',
     answer:
-      'The character limit ensures responsive performance and manages the computational costs of the AI analysis. For very long conversations, we recommend analyzing them in smaller, coherent sections.',
+      'El límite de caracteres garantiza un rendimiento receptivo y gestiona los costos computacionales del análisis de IA. Para conversaciones muy largas, recomendamos analizarlas en secciones más pequeñas y coherentes.',
   },
   {
-    question: 'What is the "Optional Context" field for?',
+    question: '¿Para qué sirve el campo "Contexto Opcional"?',
     answer:
-      'Providing context (e.g., "This is a salary negotiation" or "A discussion between a therapist and a client") helps the AI understand the specific setting and potential nuances, leading to a more accurate and relevant analysis.',
+      'Proporcionar contexto (p. ej., "Esto es una negociación salarial" o "Una discusión entre un terapeuta y un cliente") ayuda a la IA a comprender el entorno específico y los matices potenciales, lo que conduce a un análisis más preciso y relevante.',
   },
   {
-    question: 'Who is Alumbra for?',
+    question: '¿Para quién es Alumbra?',
     answer:
-      'Alumbra is for anyone looking to improve their communication skills. This includes managers, HR professionals, sales teams, customer support agents, therapists, and individuals who want to gain deeper insight into their personal interactions.',
+      'Alumbra es para cualquiera que busque mejorar sus habilidades de comunicación. Esto incluye a gerentes, profesionales de RRHH, equipos de ventas, agentes de soporte al cliente, terapeutas e individuos que desean obtener una visión más profunda de sus interacciones personales.',
   },
 ];
 
@@ -49,10 +49,10 @@ export default function SupportPage() {
       <div className="container mx-auto max-w-3xl px-4">
         <header className="text-center">
           <h1 className="font-headline text-4xl font-bold tracking-tight md:text-5xl">
-            Support & FAQ
+            Soporte y Preguntas Frecuentes
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            Have questions? We're here to help.
+            ¿Tienes preguntas? Estamos aquí para ayudar.
           </p>
         </header>
 
@@ -72,9 +72,9 @@ export default function SupportPage() {
         </div>
 
         <div className="mt-16 text-center">
-          <h2 className="text-2xl font-semibold">Still have questions?</h2>
+          <h2 className="text-2xl font-semibold">¿Aún tienes preguntas?</h2>
           <p className="mt-2 text-muted-foreground">
-            Contact our support team and we'll be happy to assist you.
+            Contacta a nuestro equipo de soporte y estaremos encantados de ayudarte.
           </p>
           <a
             href="mailto:support@alumbra.example.com"

@@ -9,10 +9,10 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 
 const navLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'How It Works', href: '/#how-it-works' },
-  { name: 'Support', href: '/support' },
-  { name: 'Privacy', href: '/privacy' },
+  { name: 'Inicio', href: '/' },
+  { name: 'Cómo Funciona', href: '/#how-it-works' },
+  { name: 'Soporte', href: '/support' },
+  { name: 'Privacidad', href: '/privacy' },
 ];
 
 export function Header() {
@@ -81,14 +81,14 @@ export function Header() {
             className="hidden sm:inline-flex"
             variant="default"
           >
-            Analyze Now
+            Analizar Ahora
           </Button>
 
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="md:hidden">
                 <Menu className="h-5 w-5" />
-                <span className="sr-only">Open menu</span>
+                <span className="sr-only">Abrir menú</span>
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
@@ -142,7 +142,7 @@ export function Header() {
                   className="mt-8 w-full"
                   size="lg"
                 >
-                  Analyze Now
+                  Analizar Ahora
                 </Button>
               </div>
             </SheetContent>

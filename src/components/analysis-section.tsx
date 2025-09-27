@@ -26,11 +26,11 @@ import { Card, CardContent } from './ui/card';
 const formSchema = z.object({
   conversation: z
     .string()
-    .min(50, 'Conversation must be at least 50 characters long.')
-    .max(5000, 'Conversation must be less than 5000 characters.'),
+    .min(50, 'La conversación debe tener al menos 50 caracteres.')
+    .max(5000, 'La conversación debe tener menos de 5000 caracteres.'),
   context: z
     .string()
-    .max(500, 'Context must be less than 500 characters.')
+    .max(500, 'El contexto debe tener menos de 500 caracteres.')
     .optional(),
 });
 
@@ -58,7 +58,7 @@ export function AnalysisSection() {
         form.setValue('context', savedContext);
       }
     } catch (error) {
-      console.warn('Could not access local storage.');
+      console.warn('No se pudo acceder al almacenamiento local.');
     }
   }, [form]);
 
@@ -70,7 +70,7 @@ export function AnalysisSection() {
         localStorage.setItem(LOCAL_STORAGE_KEY, contextValue);
       }
     } catch (error) {
-      console.warn('Could not access local storage.');
+      console.warn('No se pudo acceder al almacenamiento local.');
     }
   }, [contextValue]);
 
@@ -81,7 +81,7 @@ export function AnalysisSection() {
       if (error) {
         toast({
           variant: 'destructive',
-          title: 'Analysis Failed',
+          title: 'Análisis Fallido',
           description: error,
         });
       } else if (data) {
@@ -95,10 +95,10 @@ export function AnalysisSection() {
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="font-headline text-3xl font-bold tracking-tight md:text-4xl">
-            Analyze Your Conversation
+            Analiza Tu Conversación
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Paste a conversation below to get started. Add optional context for a more accurate analysis.
+            Pega una conversación a continuación para comenzar. Añade contexto opcional para un análisis más preciso.
           </p>
         </div>
         <Card className="mx-auto mt-12 max-w-3xl shadow-lg">
@@ -113,10 +113,10 @@ export function AnalysisSection() {
                   name="conversation"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-lg">Conversation Text</FormLabel>
+                      <FormLabel className="text-lg">Texto de la Conversación</FormLabel>
                       <FormControl>
                         <Textarea
-                          placeholder="Paste your conversation here..."
+                          placeholder="Pega tu conversación aquí..."
                           className="min-h-[200px] text-base"
                           {...field}
                         />
@@ -131,16 +131,16 @@ export function AnalysisSection() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-lg">
-                        Optional Context
+                        Contexto Opcional
                       </FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="e.g., A performance review with a direct report."
+                          placeholder="Ej: Una evaluación de desempeño con un subordinado."
                           {...field}
                         />
                       </FormControl>
                       <FormDescription>
-                        Providing context helps the AI understand the nuances of the conversation.
+                        Proporcionar contexto ayuda a la IA a comprender los matices de la conversación.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -155,7 +155,7 @@ export function AnalysisSection() {
                   {isPending && (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   )}
-                  {isPending ? 'Analyzing...' : 'Analyze Conversation'}
+                  {isPending ? 'Analizando...' : 'Analizar Conversación'}
                 </Button>
               </form>
             </Form>
@@ -167,9 +167,9 @@ export function AnalysisSection() {
             <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-12 text-center">
               <Loader2 className="h-12 w-12 animate-spin text-primary" />
               <p className="mt-4 text-lg font-semibold">
-                AI is analyzing your text...
+                La IA está analizando tu texto...
               </p>
-              <p className="text-muted-foreground">This may take a moment.</p>
+              <p className="text-muted-foreground">Esto puede tardar un momento.</p>
             </div>
           )}
           {result && <AnalysisResults results={result} />}

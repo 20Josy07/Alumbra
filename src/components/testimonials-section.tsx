@@ -13,26 +13,26 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const testimonials = [
   {
-    name: 'Sarah L.',
-    title: 'Project Manager',
+    name: 'Sara L.',
+    title: 'Gerente de Proyectos',
     quote:
-      "Alumbra helped me navigate a difficult performance review. The recommendations were spot-on and allowed me to approach the conversation with more confidence and clarity.",
+      "Alumbra me ayudó a navegar una evaluación de desempeño difícil. Las recomendaciones fueron acertadas y me permitieron abordar la conversación con más confianza y claridad.",
     avatar: PlaceHolderImages.find(p => p.id === 'avatar1')?.imageUrl,
     fallback: 'SL',
   },
   {
     name: 'David C.',
-    title: 'Startup Founder',
+    title: 'Fundador de Startup',
     quote:
-      "As a founder, I'm constantly in high-stakes conversations. This tool is invaluable for debriefing investor pitches and team meetings. It's like having a communications coach on demand.",
+      "Como fundador, estoy constantemente en conversaciones de alto riesgo. Esta herramienta es invaluable para analizar presentaciones a inversores y reuniones de equipo. Es como tener un entrenador de comunicaciones a pedido.",
     avatar: PlaceHolderImages.find(p => p.id === 'avatar2')?.imageUrl,
     fallback: 'DC',
   },
   {
-    name: 'Maria G.',
-    title: 'HR Business Partner',
+    name: 'María G.',
+    title: 'Socia de Negocios de RRHH',
     quote:
-      'We use Alumbra to train our managers on effective communication. The ability to analyze real (anonymized) conversations and see concrete examples is a game-changer.',
+      'Usamos Alumbra para capacitar a nuestros gerentes en comunicación efectiva. La capacidad de analizar conversaciones reales (anonimizadas) y ver ejemplos concretos es revolucionaria.',
     avatar: PlaceHolderImages.find(p => p.id === 'avatar3')?.imageUrl,
     fallback: 'MG',
   },
@@ -44,10 +44,10 @@ export function TestimonialsSection() {
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="font-headline text-3xl font-bold tracking-tight md:text-4xl">
-            Trusted by Professionals
+            Con la Confianza de Profesionales
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            See how Alumbra is making a difference in professional communication.
+            Descubre cómo Alumbra está marcando la diferencia en la comunicación profesional.
           </p>
         </div>
         <Carousel

@@ -6,11 +6,11 @@ import {Toaster} from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Alumbra - AI-Powered Conversation Analysis',
+    default: 'Alumbra - Análisis de Conversaciones con IA',
     template: '%s | Alumbra',
   },
   description:
-    'Gain insights and improve your communication with Alumbra. Analyze conversation risk, understand topics, and get actionable recommendations.',
+    'Obtén información y mejora tu comunicación con Alumbra. Analiza el riesgo de la conversación, comprende los temas y obtén recomendaciones prácticas.',
 };
 
 export default function RootLayout({
@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="es" className="scroll-smooth">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link

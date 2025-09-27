@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Privacy & Security',
+  title: 'Privacidad y Seguridad',
 };
 
 export default function PrivacyPage() {
@@ -11,87 +11,65 @@ export default function PrivacyPage() {
       <div className="container mx-auto max-w-4xl px-4">
         <header className="text-center">
           <h1 className="font-headline text-4xl font-bold tracking-tight md:text-5xl">
-            Privacy & Security
+            Privacidad y Seguridad
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            Your trust is our top priority. Here's how we handle your data.
+            Tu confianza es nuestra máxima prioridad. Así es como manejamos tus datos.
           </p>
         </header>
 
         <Card className="mt-12">
           <CardContent className="prose prose-lg max-w-none p-8 dark:prose-invert prose-headings:font-headline">
-            <h2>Our Commitment to Your Privacy</h2>
+            <h2>Nuestro Compromiso con tu Privacidad</h2>
             <p>
-              Alumbra is designed with privacy as a fundamental principle. We
-              understand the sensitive nature of the conversations you analyze, and
-              we are committed to protecting your data and your anonymity.
+              Alumbra está diseñado con la privacidad como principio fundamental. Entendemos la naturaleza sensible de las conversaciones que analizas y estamos comprometidos a proteger tus datos y tu anonimato.
             </p>
 
-            <h3>Data You Provide</h3>
+            <h3>Datos que Proporcionas</h3>
             <p>
-              <strong>Conversation Text & Context:</strong> The conversation text
-              and any context you provide are sent to our secure server for AI
-              analysis. We do not store this information after the analysis is
-              complete and the results are returned to you. Each analysis is a
-              stateless transaction.
+              <strong>Texto y Contexto de la Conversación:</strong> El texto de la conversación y cualquier contexto que proporciones se envían a nuestro servidor seguro para el análisis de IA. No almacenamos esta información después de que se completa el análisis y se te devuelven los resultados. Cada análisis es una transacción sin estado.
             </p>
 
-            <h3>Data We Collect</h3>
+            <h3>Datos que Recopilamos</h3>
             <p>
-              <strong>Usage Analytics:</strong> We may collect anonymous usage
-              data to help us improve our service. This includes information like
-              feature usage frequency and performance metrics. This data is
-              aggregated and cannot be used to identify you or the content of your
-              analyses.
+              <strong>Análisis de Uso:</strong> Podemos recopilar datos de uso anónimos para ayudarnos a mejorar nuestro servicio. Esto incluye información como la frecuencia de uso de las funciones y las métricas de rendimiento. Estos datos se agregan y no se pueden utilizar para identificarte a ti ni el contenido de tus análisis.
             </p>
 
-            <h3>How We Use Your Data</h3>
+            <h3>Cómo Usamos Tus Datos</h3>
             <ul>
               <li>
-                <strong>To Provide the Service:</strong> Your conversation text is
-                used solely to generate the AI-powered analysis you request.
+                <strong>Para Prestar el Servicio:</strong> El texto de tu conversación se utiliza únicamente para generar el análisis impulsado por IA que solicitas.
               </li>
               <li>
-                <strong>To Improve the Service:</strong> Anonymous, aggregated
-                data helps us understand how our service is used, identify areas
-                for improvement, and ensure reliability.
+                <strong>Para Mejorar el Servicio:</strong> Los datos anónimos y agregados nos ayudan a comprender cómo se utiliza nuestro servicio, identificar áreas de mejora y garantizar la fiabilidad.
               </li>
             </ul>
 
-            <h3>Data Security</h3>
+            <h3>Seguridad de los Datos</h3>
             <p>
-              All communication between your browser and our servers is encrypted
-              using industry-standard TLS (Transport Layer Security). We employ
-              best practices in cloud security to protect our infrastructure.
+              Toda la comunicación entre tu navegador y nuestros servidores está encriptada utilizando TLS (Transport Layer Security) estándar de la industria. Empleamos las mejores prácticas en seguridad en la nube para proteger nuestra infraestructura.
             </p>
 
-            <h2>Your Control</h2>
+            <h2>Tu Control</h2>
             <p>
-              You have complete control over the data you submit. Since we do not
-              store your conversations, there is no data for you to request or
-              delete. The optional context you provide is stored only in your
-              browser's local storage, and you can clear it at any time by
-              clearing your browser data.
+              Tienes control total sobre los datos que envías. Como no almacenamos tus conversaciones, no hay datos que puedas solicitar o eliminar. El contexto opcional que proporcionas se almacena solo en el almacenamiento local de tu navegador y puedes borrarlo en cualquier momento limpiando los datos de tu navegador.
             </p>
 
-            <h3>Changes to This Policy</h3>
+            <h3>Cambios en Esta Política</h3>
             <p>
-              We may update this Privacy Policy from time to time. We will notify
-              you of any significant changes by posting the new policy on this
-              page.
+              Podemos actualizar esta Política de Privacidad de vez en cuando. Te notificaremos cualquier cambio significativo publicando la nueva política en esta página.
             </p>
 
-            <h3>Contact Us</h3>
+            <h3>Contáctanos</h3>
             <p>
-              If you have any questions about this Privacy Policy, please contact
-              us at{' '}
+              Si tienes alguna pregunta sobre esta Política de Privacidad, por favor contáctanos en{' '}
               <a href="mailto:privacy@alumbra.example.com">
                 privacy@alumbra.example.com
               </a>
               .
             </p>
             <p className="text-sm text-muted-foreground">
-              Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+              Última actualización: {new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
             </p>
           </CardContent>
         </Card>

@@ -4,23 +4,23 @@ import { ClipboardPaste, Bot, Search, Lightbulb } from 'lucide-react';
 const steps = [
   {
     icon: ClipboardPaste,
-    title: '1. Paste Conversation',
-    description: 'Simply copy and paste the text from your conversation into the analysis field.',
+    title: '1. Pega la Conversación',
+    description: 'Simplemente copia y pega el texto de tu conversación en el campo de análisis.',
   },
   {
     icon: Search,
-    title: '2. Add Context (Optional)',
-    description: 'Provide a brief, optional context to help our AI deliver a more nuanced and accurate analysis.',
+    title: '2. Añade Contexto (Opcional)',
+    description: 'Proporciona un breve contexto opcional para ayudar a nuestra IA a ofrecer un análisis más matizado y preciso.',
   },
   {
     icon: Bot,
-    title: '3. Analyze with AI',
-    description: 'Our powerful AI, powered by Gemini, processes your text to identify key themes, risks, and patterns.',
+    title: '3. Analiza con IA',
+    description: 'Nuestra potente IA, impulsada por Gemini, procesa tu texto para identificar temas clave, riesgos y patrones.',
   },
   {
     icon: Lightbulb,
-    title: '4. Get Insights',
-    description: 'Receive a detailed report with risk assessments, topic categories, and actionable recommendations.',
+    title: '4. Obtén Información',
+    description: 'Recibe un informe detallado con evaluaciones de riesgo, categorías de temas y recomendaciones prácticas.',
   },
 ];
 
@@ -30,10 +30,10 @@ export function HowItWorksSection() {
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="font-headline text-3xl font-bold tracking-tight md:text-4xl">
-            How It Works
+            Cómo Funciona
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Get conversation insights in four simple steps.
+            Obtén información de tus conversaciones en cuatro simples pasos.
           </p>
         </div>
         <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">

@@ -22,10 +22,10 @@ const socialLinks = [
 ];
 
 const navLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'How It Works', href: '/#how-it-works' },
-  { name: 'Support', href: '/support' },
-  { name: 'Privacy Policy', href: '/privacy' },
+  { name: 'Inicio', href: '/' },
+  { name: 'Cómo Funciona', href: '/#how-it-works' },
+  { name: 'Soporte', href: '/support' },
+  { name: 'Política de Privacidad', href: '/privacy' },
 ];
 
 export function Footer() {
@@ -36,12 +36,12 @@ export function Footer() {
           <div className="space-y-4">
             <Logo />
             <p className="text-sm text-muted-foreground max-w-xs">
-              AI-powered insights to illuminate your conversations and improve communication.
+              Información impulsada por IA para iluminar tus conversaciones y mejorar la comunicación.
             </p>
           </div>
           <div className="md:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-8">
             <div>
-              <h3 className="font-semibold text-foreground">Navigation</h3>
+              <h3 className="font-semibold text-foreground">Navegación</h3>
               <ul className="mt-4 space-y-2">
                 {navLinks.map((link) => (
                   <li key={link.name}>
@@ -63,7 +63,7 @@ export function Footer() {
                     href="/privacy"
                     className="text-sm text-muted-foreground hover:text-primary transition-colors"
                   >
-                    Privacy Policy
+                    Política de Privacidad
                   </Link>
                 </li>
                 <li>
@@ -71,13 +71,13 @@ export function Footer() {
                     href="#"
                     className="text-sm text-muted-foreground hover:text-primary transition-colors"
                   >
-                    Terms of Service
+                    Términos de Servicio
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold text-foreground">Connect</h3>
+              <h3 className="font-semibold text-foreground">Conecta</h3>
               <div className="mt-4 flex space-x-2">
                 {socialLinks.map((social) => (
                   <Button
@@ -102,7 +102,7 @@ export function Footer() {
         </div>
         <div className="mt-12 border-t pt-8 text-center">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Alumbra. All rights reserved.
+            © {new Date().getFullYear()} Alumbra. Todos los derechos reservados.
           </p>
         </div>
       </div>

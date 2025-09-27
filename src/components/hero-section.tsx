@@ -15,18 +15,18 @@ export function HeroSection() {
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-4xl">
           <h1 className="font-headline text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
-            Illuminate Your Conversations with AI
+            Ilumina Tus Conversaciones con IA
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-            Alumbra uses advanced AI to analyze your conversations, identify
-            risks, and provide actionable insights for better communication.
+            Alumbra utiliza IA avanzada para analizar tus conversaciones, identificar
+            riesgos y proporcionar información práctica para una mejor comunicación.
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <Button size="lg" onClick={handleScroll}>
-              Analyze Now <ArrowRight className="ml-2 h-5 w-5" />
+              Analizar Ahora <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button size="lg" variant="outline" asChild>
-              <a href="#how-it-works">Learn More</a>
+              <a href="#how-it-works">Aprender Más</a>
             </Button>
           </div>
         </div>
