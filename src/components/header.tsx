@@ -97,7 +97,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Button asChild className="hidden sm:inline-flex" variant="default">
+          <Button asChild className="hidden sm:inline-flex rounded-full" variant="default">
             <Link href="/analizar">Probar Alumbra</Link>
           </Button>
 
@@ -192,7 +192,7 @@ export function Header() {
                     );
                   })}
                 </nav>
-                <Button asChild className="mt-8 w-full" size="lg">
+                <Button asChild className="mt-8 w-full rounded-full" size="lg">
                   <Link
                     href="/analizar"
                     onClick={() => setIsMobileMenuOpen(false)}
