@@ -27,9 +27,6 @@ const AnalyzeConversationRiskOutputSchema = z.object({
     score: z
       .number()
       .describe('Una puntuación numérica del 1 al 10 que representa el nivel de riesgo.'),
-    level: z
-      .string()
-      .describe('Una evaluación general del nivel de riesgo de la conversación (Bajo, Medio, Alto, Crítico).'),
     justification: z
       .string()
       .describe('Una breve justificación de la puntuación de riesgo asignada.'),
@@ -66,7 +63,7 @@ const prompt = ai.definePrompt({
   Contexto: {{{context}}}
 
   Realiza las siguientes tareas:
-  1.  **Evaluación de Riesgo**: Proporciona una puntuación de riesgo del 1 (riesgo mínimo) al 10 (riesgo crítico). Asigna un nivel de riesgo (Bajo, Medio, Alto, Crítico) y una breve justificación de tu puntuación.
+  1.  **Evaluación de Riesgo**: Proporciona una puntuación de riesgo del 1 (riesgo mínimo) al 10 (riesgo crítico) y una breve justificación de tu puntuación.
   2.  **Factores de Riesgo**: Identifica factores de riesgo específicos.
   3.  **Categorías de Temas**: Clasifica los temas discutidos.
   4.  **Ejemplos**: Extrae ejemplos de la conversación que resalten los riesgos.

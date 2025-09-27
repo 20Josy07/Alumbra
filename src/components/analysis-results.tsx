@@ -13,18 +13,19 @@ import {
 import { Progress } from './ui/progress';
 
 const getRiskDetails = (
-  score: number,
-  level: string
+  score: number
 ): {
   icon: React.ReactNode;
   progressColor: string;
   textColor: string;
+  level: string;
 } => {
   if (score <= 3) {
     return {
       icon: <ShieldCheck className="mr-2 h-6 w-6 text-green-500" />,
       progressColor: 'bg-green-500',
       textColor: 'text-green-700',
+      level: 'Bajo',
     };
   }
   if (score <= 6) {
@@ -32,12 +33,14 @@ const getRiskDetails = (
       icon: <AlertTriangle className="mr-2 h-6 w-6 text-yellow-500" />,
       progressColor: 'bg-yellow-500',
       textColor: 'text-yellow-700',
+      level: 'Medio',
     };
   }
   return {
     icon: <ShieldAlert className="mr-2 h-6 w-6 text-red-500" />,
     progressColor: 'bg-red-500',
     textColor: 'text-red-700',
+    level: 'Alto',
   };
 };
 
@@ -47,8 +50,7 @@ export function AnalysisResults({
   results: AnalyzeConversationRiskOutput;
 }) {
   const riskDetails = getRiskDetails(
-    results.riskAssessment.score,
-    results.riskAssessment.level
+    results.riskAssessment.score
   );
 
   return (
@@ -68,7 +70,7 @@ export function AnalysisResults({
             className={`flex items-center text-2xl font-bold ${riskDetails.textColor}`}
           >
             {riskDetails.icon}
-            {results.riskAssessment.score} / 10 - {results.riskAssessment.level}
+            {results.riskAssessment.score} / 10 - {riskDetails.level}
           </div>
           <Progress
             value={results.riskAssessment.score * 10}
