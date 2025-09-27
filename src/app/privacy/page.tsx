@@ -1,11 +1,21 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Metadata } from 'next';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Privacidad y Seguridad',
-};
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useEffect, useState } from 'react';
 
 export default function PrivacyPage() {
+  const [lastUpdated, setLastUpdated] = useState('');
+
+  useEffect(() => {
+    setLastUpdated(
+      new Date().toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      })
+    );
+  }, []);
+
   return (
     <div className="bg-background py-16 md:py-24">
       <div className="container mx-auto max-w-4xl px-4">
@@ -19,6 +29,9 @@ export default function PrivacyPage() {
         </header>
 
         <Card className="mt-12">
+          <CardHeader>
+            <CardTitle>Privacidad y Seguridad</CardTitle>
+          </CardHeader>
           <CardContent className="prose prose-lg max-w-none p-8 dark:prose-invert prose-headings:font-headline">
             <h2>Nuestro Compromiso con tu Privacidad</h2>
             <p>
@@ -57,7 +70,7 @@ export default function PrivacyPage() {
 
             <h3>Cambios en Esta Política</h3>
             <p>
-              Podemos actualizar esta Política de Privacidad de vez en cuando. Te notificaremos cualquier cambio significativo publicando la nueva política en esta página.
+              Podemos actualizar esta Política de Privacidad de vez en quando. Te notificaremos cualquier cambio significativo publicando la nueva política en esta página.
             </p>
 
             <h3>Contáctanos</h3>
@@ -68,9 +81,11 @@ export default function PrivacyPage() {
               </a>
               .
             </p>
-            <p className="text-sm text-muted-foreground">
-              Última actualización: {new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
-            </p>
+            {lastUpdated && (
+              <p className="text-sm text-muted-foreground">
+                Última actualización: {lastUpdated}
+              </p>
+            )}
           </CardContent>
         </Card>
       </div>
