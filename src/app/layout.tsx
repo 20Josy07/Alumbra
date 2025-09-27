@@ -3,7 +3,7 @@ import './globals.css';
 import {Header} from '@/components/header';
 import {Footer} from '@/components/footer';
 import {Toaster} from '@/components/ui/toaster';
-import { AuthProvider } from '@/hooks/use-auth';
+import {AuthProvider} from '@/hooks/use-auth';
 
 export const metadata: Metadata = {
   title: {
@@ -20,9 +20,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="scroll-smooth">
+    <html lang="es" className="scroll-smooth dark">
       <head>
-        <link rel="icon" href="https://i.postimg.cc/QCys4Rbt/favicon-light.png" />
+        <link
+          rel="icon"
+          href="https://i.postimg.cc/QCys4Rbt/favicon-light.png"
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
