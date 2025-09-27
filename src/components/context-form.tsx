@@ -86,19 +86,26 @@ export function ContextForm({ onSubmit }: ContextFormProps) {
   };
   
   const handleSkip = () => {
+    if (!form.getValues('privacyPolicy')) {
+      form.setError('privacyPolicy', {
+        type: 'manual',
+        message: 'Debes aceptar la política de privacidad para continuar, incluso si omites el cuestionario.',
+      });
+      return;
+    }
     onSubmit('El usuario ha decidido no proporcionar contexto.');
   }
 
   return (
     <Card className="mx-auto max-w-3xl shadow-lg">
-      <CardHeader>
-        <CardTitle>Paso 1: Contexto de la Conversación (Opcional)</CardTitle>
-        <FormDescription>
-          Proporcionar un contexto claro ayuda a la IA a realizar un análisis más preciso. Puedes omitir este paso si lo prefieres.
-        </FormDescription>
-      </CardHeader>
-      <CardContent className="p-6 pt-0">
-        <Form {...form}>
+      <Form {...form}>
+        <CardHeader>
+          <CardTitle>Paso 1: Contexto de la Conversación (Opcional)</CardTitle>
+          <FormDescription>
+            Proporcionar un contexto claro ayuda a la IA a realizar un análisis más preciso. Puedes omitir este paso si lo prefieres.
+          </FormDescription>
+        </CardHeader>
+        <CardContent className="p-6 pt-0">
           <form
             onSubmit={form.handleSubmit(handleFormSubmit)}
             className="space-y-8"
@@ -169,8 +176,8 @@ export function ContextForm({ onSubmit }: ContextFormProps) {
               </Button>
             </div>
           </form>
-        </Form>
-      </CardContent>
+        </CardContent>
+      </Form>
     </Card>
   );
 }
