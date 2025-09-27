@@ -6,11 +6,11 @@ export function Logo() {
       <Image
         src="https://i.postimg.cc/QCys4Rbt/favicon-light.png"
         alt="Alumbra logo"
-        width={28}
-        height={28}
-        className="h-7 w-7"
+        width={32}
+        height={32}
+        className="h-8 w-8"
       />
-      <span className="text-xl font-bold text-foreground">Alumbra</span>
+      <span className="text-2xl font-bold text-foreground">Alumbra</span>
     </div>
   );
 }
