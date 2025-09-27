@@ -51,7 +51,7 @@ export function TestimonialsSection() {
   }, []);
 
   return (
-    <section className="bg-secondary/50 py-20 md:py-32">
+    <section className="bg-muted/50 py-20 md:py-32">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="font-headline text-3xl font-bold tracking-tight md:text-4xl">
@@ -86,7 +86,7 @@ export function TestimonialsSection() {
                   <div className="p-4">
                     <Card className="h-full">
                       <CardContent className="flex h-full flex-col justify-between p-6">
-                        <Quote className="h-8 w-8 text-accent" />
+                        <Quote className="h-8 w-8 text-accent-foreground" />
                         <p className="my-4 flex-grow text-base text-muted-foreground">
                           "{testimonial.comment}"
                         </p>

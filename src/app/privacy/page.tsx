@@ -32,7 +32,7 @@ export default function PrivacyPage() {
           <CardHeader>
             <CardTitle>Privacidad y Seguridad</CardTitle>
           </CardHeader>
-          <CardContent className="prose prose-lg max-w-none p-8 dark:prose-invert prose-headings:font-headline">
+          <CardContent className="prose prose-lg max-w-none p-8 prose-headings:font-headline">
             <h2>Nuestro Compromiso con tu Privacidad</h2>
             <p>
               Alumbra está diseñado con la privacidad como principio fundamental. Entendemos la naturaleza sensible de las conversaciones que analizas y estamos comprometidos a proteger tus datos y tu anonimato.
