@@ -23,9 +23,17 @@ const AnalyzeConversationRiskInputSchema = z.object({
 export type AnalyzeConversationRiskInput = z.infer<typeof AnalyzeConversationRiskInputSchema>;
 
 const AnalyzeConversationRiskOutputSchema = z.object({
-  riskAssessment: z
-    .string()
-    .describe('Una evaluación general del nivel de riesgo de la conversación.'),
+  riskAssessment: z.object({
+    score: z
+      .number()
+      .describe('Una puntuación numérica del 1 al 10 que representa el nivel de riesgo.'),
+    level: z
+      .string()
+      .describe('Una evaluación general del nivel de riesgo de la conversación (Bajo, Medio, Alto, Crítico).'),
+    justification: z
+      .string()
+      .describe('Una breve justificación de la puntuación de riesgo asignada.'),
+  }),
   riskFactors: z
     .array(z.string())
     .describe('Factores de riesgo específicos identificados en la conversación.'),
@@ -57,14 +65,14 @@ const prompt = ai.definePrompt({
 
   Contexto: {{{context}}}
 
-  Proporciona una evaluación general del riesgo, identifica factores de riesgo específicos, clasifica los temas discutidos, proporciona ejemplos de la conversación que resalten los riesgos y ofrece recomendaciones para abordar los riesgos identificados.
+  Realiza las siguientes tareas:
+  1.  **Evaluación de Riesgo**: Proporciona una puntuación de riesgo del 1 (riesgo mínimo) al 10 (riesgo crítico). Asigna un nivel de riesgo (Bajo, Medio, Alto, Crítico) y una breve justificación de tu puntuación.
+  2.  **Factores de Riesgo**: Identifica factores de riesgo específicos.
+  3.  **Categorías de Temas**: Clasifica los temas discutidos.
+  4.  **Ejemplos**: Extrae ejemplos de la conversación que resalten los riesgos.
+  5.  **Recomendaciones**: Ofrece recomendaciones para abordar los riesgos.
 
-  Formatea tu respuesta como un objeto JSON con las siguientes claves:
-  - riskAssessment: Una evaluación general del nivel de riesgo de la conversación.
-  - riskFactors: Factores de riesgo específicos identificados en la conversación.
-  - topicCategories: Categorías o temas discutidos en la conversación.
-  - examples: Ejemplos específicos de la conversación que resaltan los riesgos.
-  - recommendations: Recomendaciones para abordar los riesgos identificados.`,
+  Formatea tu respuesta como un objeto JSON con la siguiente estructura.`,
 });
 
 const analyzeConversationRiskFlow = ai.defineFlow(

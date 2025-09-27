@@ -2,33 +2,43 @@ import type { AnalyzeConversationRiskOutput } from '@/ai/flows/analyze-conversat
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
-  Shield,
   ListTree,
   Quote,
   Sparkles,
   AlertTriangle,
-  Heart,
+  ShieldAlert,
+  ShieldCheck,
+  Activity,
 } from 'lucide-react';
+import { Progress } from './ui/progress';
 
-type RiskLevel = 'Bajo' | 'Medio' | 'Alto' | 'Crítico';
-
-const getRiskBadgeVariant = (
-  riskAssessment: string
+const getRiskDetails = (
+  score: number,
+  level: string
 ): {
-  variant: 'default' | 'destructive' | 'outline' | 'secondary';
   icon: React.ReactNode;
+  progressColor: string;
+  textColor: string;
 } => {
-  const assessment = riskAssessment.toLowerCase();
-  if (assessment.includes('low') || assessment.includes('bajo')) {
-    return { variant: 'secondary', icon: <Heart className="mr-2" /> };
+  if (score <= 3) {
+    return {
+      icon: <ShieldCheck className="mr-2 h-6 w-6" />,
+      progressColor: 'bg-green-500',
+      textColor: 'text-green-500',
+    };
   }
-  if (assessment.includes('medium') || assessment.includes('medio')) {
-    return { variant: 'outline', icon: <AlertTriangle className="mr-2" /> };
+  if (score <= 6) {
+    return {
+      icon: <AlertTriangle className="mr-2 h-6 w-6" />,
+      progressColor: 'bg-yellow-500',
+      textColor: 'text-yellow-500',
+    };
   }
-  if (assessment.includes('high') || assessment.includes('alto') || assessment.includes('critical') || assessment.includes('crítico')) {
-    return { variant: 'destructive', icon: <Shield className="mr-2" /> };
-  }
-  return { variant: 'default', icon: <Shield className="mr-2" /> };
+  return {
+    icon: <ShieldAlert className="mr-2 h-6 w-6" />,
+    progressColor: 'bg-red-500',
+    textColor: 'text-red-500',
+  };
 };
 
 export function AnalysisResults({
@@ -36,27 +46,34 @@ export function AnalysisResults({
 }: {
   results: AnalyzeConversationRiskOutput;
 }) {
-  const riskBadge = getRiskBadgeVariant(results.riskAssessment);
+  const riskDetails = getRiskDetails(
+    results.riskAssessment.score,
+    results.riskAssessment.level
+  );
 
   return (
     <div className="mt-8 grid gap-6">
-      <Card className="bg-card/50">
+      <Card className="bg-primary/90 text-primary-foreground">
         <CardHeader>
           <CardTitle className="flex items-center text-2xl">
-            <Shield className="mr-3 h-6 w-6 text-primary" />
+            <Activity className="mr-3 h-6 w-6" />
             Evaluación de Riesgo
           </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Badge
-            variant={riskBadge.variant}
-            className="mb-4 flex w-fit items-center py-2 px-4 text-lg"
-          >
-            {riskBadge.icon} {results.riskAssessment}
-          </Badge>
-          <p className="text-muted-foreground">
-            Esta evaluación es generada por IA y proporciona una visión general de los posibles riesgos en la conversación.
+          <p className="text-primary-foreground/80">
+            {results.riskAssessment.justification}
           </p>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div
+            className={`flex items-center text-2xl font-bold ${riskDetails.textColor}`}
+          >
+            {riskDetails.icon}
+            {results.riskAssessment.score} / 10 - {results.riskAssessment.level}
+          </div>
+          <Progress
+            value={results.riskAssessment.score * 10}
+            className={`h-3 [&>div]:${riskDetails.progressColor}`}
+          />
         </CardContent>
       </Card>
 
