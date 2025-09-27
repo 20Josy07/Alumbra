@@ -53,6 +53,25 @@ export function AnalysisResults({
     results.riskAssessment.score
   );
 
+  const formatRecommendations = (recommendations: string) => {
+    const parts = recommendations.split(/\d+\.\s/);
+    const introduction = parts[0].trim();
+    const listItems = recommendations.match(/\d+\.\s\*\*.*?(?=\d+\.\s\*\*|$)/gs) || [];
+
+    return {
+      introduction,
+      listItems: listItems.map(item => {
+        const titleMatch = item.match(/\d+\.\s\*\*(.*?)\*\*/);
+        const title = titleMatch ? titleMatch[1] : '';
+        const description = item.replace(/\d+\.\s\*\*(.*?)\*\*/, '').trim();
+        return { title, description };
+      })
+    };
+  };
+
+  const formattedRecommendations = formatRecommendations(results.recommendations);
+
+
   return (
     <div className="mt-8 grid gap-6">
       <Card>
@@ -140,13 +159,18 @@ export function AnalysisResults({
             Recomendaciones
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <div
-            className="prose prose-sm max-w-none text-foreground dark:prose-invert"
-            dangerouslySetInnerHTML={{
-              __html: results.recommendations.replace(/\n/g, '<br />'),
-            }}
-          />
+        <CardContent className="prose prose-sm max-w-none text-foreground dark:prose-invert">
+          <p>{formattedRecommendations.introduction}</p>
+          {formattedRecommendations.listItems.length > 0 && (
+            <ol className="mt-4 space-y-3 pl-5">
+              {formattedRecommendations.listItems.map((item, index) => (
+                <li key={index}>
+                  <strong className="font-semibold">{item.title}:</strong>{' '}
+                  {item.description}
+                </li>
+              ))}
+            </ol>
+          )}
         </CardContent>
       </Card>
     </div>
