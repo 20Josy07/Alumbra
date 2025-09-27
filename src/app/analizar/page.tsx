@@ -6,6 +6,7 @@ import { ContextForm } from '@/components/context-form';
 import { AnalysisSection } from '@/components/analysis-section';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function AnalizarPage() {
   const [context, setContext] = useState<string | null>(null);
@@ -20,7 +21,15 @@ export default function AnalizarPage() {
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-16 md:py-24">
-      <header className="text-center">
+      <header className="text-center relative">
+        {!context && (
+           <Button asChild variant="outline" size="sm" className="absolute left-0 top-0">
+             <Link href="/">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Volver
+             </Link>
+           </Button>
+        )}
         <h1 className="font-headline text-4xl font-bold tracking-tight md:text-5xl">
           Analizador de Conversación
         </h1>
