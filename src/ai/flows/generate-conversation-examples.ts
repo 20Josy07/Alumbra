@@ -15,10 +15,10 @@ import {z} from 'genkit';
 const GenerateConversationExamplesInputSchema = z.object({
   conversationText: z
     .string()
-    .describe('The text of the conversation to analyze.'),
+    .describe('El texto de la conversación a analizar.'),
   riskCategories: z
     .array(z.string())
-    .describe('An array of risk categories identified in the conversation.'),
+    .describe('Un array de categorías de riesgo identificadas en la conversación.'),
 });
 export type GenerateConversationExamplesInput = z.infer<
   typeof GenerateConversationExamplesInputSchema
@@ -26,7 +26,7 @@ export type GenerateConversationExamplesInput = z.infer<
 
 const GenerateConversationExamplesOutputSchema = z.record(
   z.string(),
-  z.array(z.string()).describe('Examples from the conversation for each risk category.')
+  z.array(z.string()).describe('Ejemplos de la conversación para cada categoría de riesgo.')
 );
 export type GenerateConversationExamplesOutput = z.infer<
   typeof GenerateConversationExamplesOutputSchema
@@ -42,19 +42,19 @@ const prompt = ai.definePrompt({
   name: 'generateConversationExamplesPrompt',
   input: {schema: GenerateConversationExamplesInputSchema},
   output: {schema: GenerateConversationExamplesOutputSchema},
-  prompt: `You are an AI expert in conversation analysis, skilled at identifying specific examples related to different risk categories.
+  prompt: `Eres un experto en IA en análisis de conversaciones, experto en identificar ejemplos específicos relacionados con diferentes categorías de riesgo.
 
-  Analyze the provided conversation text and extract 2-3 short examples for each of the following risk categories. Only include direct quotes from the text.
+  Analiza el texto de la conversación proporcionado y extrae 2-3 ejemplos cortos para cada una de las siguientes categorías de riesgo. Solo incluye citas directas del texto.
 
-  Conversation Text:
+  Texto de la Conversación:
   {{conversationText}}
 
-  Risk Categories:
+  Categorías de Riesgo:
   {{#each riskCategories}}
   - {{this}}
   {{/each}}
 
-  Format your response as a JSON object where each risk category is a key, and the value is an array of example sentences from the conversation.
+  Formatea tu respuesta como un objeto JSON donde cada categoría de riesgo es una clave, y el valor es un array de frases de ejemplo de la conversación.
   `,
 });
 

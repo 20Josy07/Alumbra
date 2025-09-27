@@ -14,30 +14,30 @@ import {z} from 'genkit';
 const AnalyzeConversationRiskInputSchema = z.object({
   conversation: z
     .string()
-    .describe('The conversation text to analyze for potential risks.'),
+    .describe('El texto de la conversación a analizar en busca de posibles riesgos.'),
   context: z
     .string()
     .optional()
-    .describe('Optional context about the conversation.'),
+    .describe('Contexto opcional sobre la conversación.'),
 });
 export type AnalyzeConversationRiskInput = z.infer<typeof AnalyzeConversationRiskInputSchema>;
 
 const AnalyzeConversationRiskOutputSchema = z.object({
   riskAssessment: z
     .string()
-    .describe('An overall assessment of the risk level of the conversation.'),
+    .describe('Una evaluación general del nivel de riesgo de la conversación.'),
   riskFactors: z
     .array(z.string())
-    .describe('Specific risk factors identified in the conversation.'),
+    .describe('Factores de riesgo específicos identificados en la conversación.'),
   topicCategories: z
     .array(z.string())
-    .describe('Categories or topics discussed in the conversation.'),
+    .describe('Categorías o temas discutidos en la conversación.'),
   examples: z
     .array(z.string())
-    .describe('Specific examples from the conversation that highlight the risks.'),
+    .describe('Ejemplos específicos de la conversación que resaltan los riesgos.'),
   recommendations: z
     .string()
-    .describe('Recommendations for addressing the identified risks.'),
+    .describe('Recomendaciones para abordar los riesgos identificados.'),
 });
 export type AnalyzeConversationRiskOutput = z.infer<typeof AnalyzeConversationRiskOutputSchema>;
 
@@ -49,22 +49,22 @@ const prompt = ai.definePrompt({
   name: 'analyzeConversationRiskPrompt',
   input: {schema: AnalyzeConversationRiskInputSchema},
   output: {schema: AnalyzeConversationRiskOutputSchema},
-  prompt: `You are an AI expert in analyzing conversations for potential risks.
+  prompt: `Eres un experto en IA en analizar conversaciones para detectar posibles riesgos.
 
-  Analyze the following conversation for potential risks. Consider the context provided, if any.
+  Analiza la siguiente conversación en busca de posibles riesgos. Considera el contexto proporcionado, si lo hay.
 
-  Conversation: {{{conversation}}}
+  Conversación: {{{conversation}}}
 
-  Context: {{{context}}}
+  Contexto: {{{context}}}
 
-  Provide an overall risk assessment, identify specific risk factors, categorize the topics discussed, provide examples from the conversation that highlight the risks, and offer recommendations for addressing the identified risks.
+  Proporciona una evaluación general del riesgo, identifica factores de riesgo específicos, clasifica los temas discutidos, proporciona ejemplos de la conversación que resalten los riesgos y ofrece recomendaciones para abordar los riesgos identificados.
 
-  Format your response as a JSON object with the following keys:
-  - riskAssessment: An overall assessment of the risk level of the conversation.
-  - riskFactors: Specific risk factors identified in the conversation.
-  - topicCategories: Categories or topics discussed in the conversation.
-  - examples: Specific examples from the conversation that highlight the risks.
-  - recommendations: Recommendations for addressing the identified risks.`,
+  Formatea tu respuesta como un objeto JSON con las siguientes claves:
+  - riskAssessment: Una evaluación general del nivel de riesgo de la conversación.
+  - riskFactors: Factores de riesgo específicos identificados en la conversación.
+  - topicCategories: Categorías o temas discutidos en la conversación.
+  - examples: Ejemplos específicos de la conversación que resaltan los riesgos.
+  - recommendations: Recomendaciones para abordar los riesgos identificados.`,
 });
 
 const analyzeConversationRiskFlow = ai.defineFlow(

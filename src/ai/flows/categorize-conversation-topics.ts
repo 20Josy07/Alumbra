@@ -1,4 +1,3 @@
-// categorize-conversation-topics.ts
 'use server';
 
 /**
@@ -15,7 +14,7 @@ import {z} from 'genkit';
 const CategorizeConversationTopicsInputSchema = z.object({
   conversationText: z
     .string()
-    .describe('The text of the conversation to categorize.'),
+    .describe('El texto de la conversación a categorizar.'),
 });
 export type CategorizeConversationTopicsInput = z.infer<
   typeof CategorizeConversationTopicsInputSchema
@@ -24,7 +23,7 @@ export type CategorizeConversationTopicsInput = z.infer<
 const CategorizeConversationTopicsOutputSchema = z.object({
   topics: z
     .array(z.string())
-    .describe('A list of topics discussed in the conversation.'),
+    .describe('Una lista de temas discutidos en la conversación.'),
 });
 export type CategorizeConversationTopicsOutput = z.infer<
   typeof CategorizeConversationTopicsOutputSchema
@@ -40,9 +39,9 @@ const categorizeConversationTopicsPrompt = ai.definePrompt({
   name: 'categorizeConversationTopicsPrompt',
   input: {schema: CategorizeConversationTopicsInputSchema},
   output: {schema: CategorizeConversationTopicsOutputSchema},
-  prompt: `You are an AI expert in conversation analysis. Please read the following conversation text and categorize the topics discussed. Return a list of topics.
+  prompt: `Eres un experto en IA en análisis de conversaciones. Por favor, lee el siguiente texto de conversación y categoriza los temas discutidos. Devuelve una lista de temas.
 
-Conversation Text: {{{conversationText}}}`,
+Texto de la Conversación: {{{conversationText}}}`,
 });
 
 const categorizeConversationTopicsFlow = ai.defineFlow(

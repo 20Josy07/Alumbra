@@ -1,4 +1,3 @@
-// src/ai/flows/offer-conversation-recommendations.ts
 'use server';
 
 /**
@@ -15,10 +14,10 @@ import {z} from 'genkit';
 const OfferConversationRecommendationsInputSchema = z.object({
   conversationData: z
     .string()
-    .describe('The complete conversation data to be analyzed.'),
-  riskAssessment: z.string().describe('The risk assessment of the conversation.'),
-  topicCategories: z.string().describe('The categorized topics of the conversation.'),
-  examples: z.string().describe('Examples from the conversation.'),
+    .describe('Los datos completos de la conversación a analizar.'),
+  riskAssessment: z.string().describe('La evaluación de riesgos de la conversación.'),
+  topicCategories: z.string().describe('Los temas categorizados de la conversación.'),
+  examples: z.string().describe('Ejemplos de la conversación.'),
 });
 export type OfferConversationRecommendationsInput = z.infer<
   typeof OfferConversationRecommendationsInputSchema
@@ -28,7 +27,7 @@ const OfferConversationRecommendationsOutputSchema = z.object({
   recommendations: z
     .string()
     .describe(
-      'AI-powered recommendations on how to improve the conversation or mitigate risks.'
+      'Recomendaciones impulsadas por IA sobre cómo mejorar la conversación o mitigar riesgos.'
     ),
 });
 export type OfferConversationRecommendationsOutput = z.infer<
@@ -45,16 +44,16 @@ const offerConversationRecommendationsPrompt = ai.definePrompt({
   name: 'offerConversationRecommendationsPrompt',
   input: {schema: OfferConversationRecommendationsInputSchema},
   output: {schema: OfferConversationRecommendationsOutputSchema},
-  prompt: `You are an AI assistant designed to provide recommendations on how to improve conversations and mitigate risks.
+  prompt: `Eres un asistente de IA diseñado para proporcionar recomendaciones sobre cómo mejorar las conversaciones y mitigar riesgos.
 
-  Based on the following conversation data, risk assessment, topic categories, and examples, provide actionable recommendations to the user.
+  Basándote en los siguientes datos de la conversación, evaluación de riesgos, categorías de temas y ejemplos, proporciona recomendaciones accionables al usuario.
 
-  Conversation Data: {{{conversationData}}}
-  Risk Assessment: {{{riskAssessment}}}
-  Topic Categories: {{{topicCategories}}}
-  Examples: {{{examples}}}
+  Datos de la Conversación: {{{conversationData}}}
+  Evaluación de Riesgos: {{{riskAssessment}}}
+  Categorías de Temas: {{{topicCategories}}}
+  Ejemplos: {{{examples}}}
 
-  Recommendations:`,
+  Recomendaciones:`,
 });
 
 const offerConversationRecommendationsFlow = ai.defineFlow(
