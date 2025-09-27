@@ -1,39 +1,73 @@
 'use client';
+
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import { Plus, Droplet, Diamond } from 'lucide-react';
 
 export function HeroSection() {
-
-  const handleScrollToHowItWorks = () => {
-    const element = document.getElementById('how-it-works');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
-    <section className="bg-background py-20 text-center md:py-32">
-      <div className="container mx-auto px-4">
-        <div className="mx-auto max-w-4xl">
-          <h1 className="font-headline text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
-            Ilumina Tus Conversaciones con IA
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground">
-            Alumbra utiliza IA avanzada para analizar tus conversaciones, identificar
-            riesgos y proporcionar información práctica para una mejor comunicación.
-          </p>
-          <div className="mt-10 flex items-center justify-center gap-x-6">
-            <Button size="lg" asChild>
-              <Link href="/analizar">
-                Analizar Ahora <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-            <Button size="lg" variant="outline" onClick={handleScrollToHowItWorks}>
-              Aprender Más
-            </Button>
-          </div>
+    <section className="relative min-h-screen overflow-hidden bg-[#0f0a1e] text-center">
+      {/* Fondo radial suave */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#24104f] via-[#140829] to-[#0f0a1e]" />
+
+      {/* Partículas flotantes */}
+      <div className="absolute inset-0">
+        {Array.from({ length: 20 }).map((_, i) => {
+          const top = `${Math.random() * 95}%`;
+          const left = `${Math.random() * 95}%`;
+          const size = Math.random() > 0.7 ? 'w-2 h-2' : 'w-1 h-1';
+          const delay = `${(i * 0.5).toFixed(1)}s`;
+          const color = Math.random() > 0.5 ? 'bg-[#f8d851]' : 'bg-[#a856f6]';
+          return (
+            <div
+              key={i}
+              className={`absolute rounded-full ${size} ${color} animate-float`}
+              style={{ top, left, animationDelay: delay }}
+            />
+          );
+        })}
+      </div>
+
+      {/* Contenido principal */}
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
+        {/* Título con shiny effect */}
+        <h1 className="text-7xl md:text-8xl lg:text-[11rem] font-bold mb-8 tracking-tight">
+          <span
+            className="relative inline bg-gradient-to-r from-[#aa5af1] to-[#f4d15a] bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient"
+            style={{ '--shimmer-width': '200%' } as React.CSSProperties}
+          >
+            Alumbra
+          </span>
+        </h1>
+
+        {/* Botones de funciones */}
+        <div className="flex flex-wrap gap-4 mb-8 justify-center">
+          <Button
+            variant="outline"
+            className="rounded-full border-[#f8d851]/50 bg-white/10 text-[#f8d851] hover:bg-white/20 backdrop-blur-sm group gap-2"
+          >
+            <Plus className="w-5 h-5 text-[#f8d851] group-hover:rotate-90 transition-transform duration-300" />
+            detecta
+          </Button>
+          <Button
+            variant="outline"
+            className="rounded-full border-[#f8d851]/50 bg-white/10 text-[#f8d851] hover:bg-white/20 backdrop-blur-sm group gap-2"
+          >
+            <Droplet className="w-5 h-5 text-[#f8d851] group-hover:scale-110 transition-transform duration-300" />
+            procesa
+          </Button>
+          <Button
+            variant="outline"
+            className="rounded-full border-[#f8d851]/50 bg-white/10 text-[#f8d851] hover:bg-white/20 backdrop-blur-sm group gap-2"
+          >
+            <Diamond className="w-5 h-5 text-[#f8d851] group-hover:rotate-45 transition-transform duration-300" />
+            aclara
+          </Button>
         </div>
+
+        {/* Descripción */}
+        <p className="text-lg text-white/70 max-w-2xl leading-relaxed">
+          Analiza tus conversaciones con IA y detecta abuso psicológico en segundos. Protege tu bienestar emocional con claridad y privacidad.
+        </p>
       </div>
     </section>
   );
