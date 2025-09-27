@@ -10,6 +10,7 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import {googleAI} from '@genkit-ai/googleai';
 
 const AnalyzeConversationRiskInputSchema = z.object({
   conversation: z
@@ -26,23 +27,23 @@ const AnalyzeConversationRiskOutputSchema = z.object({
   riskAssessment: z.object({
     score: z
       .number()
-      .describe('Una puntuación numérica del 1 al 10 que representa el nivel de riesgo.'),
+      .describe('Una puntuación numérica del 1 al 10 que representa el nivel de riesgo, basada en un análisis riguroso.'),
     justification: z
       .string()
-      .describe('Una breve justificación de la puntuación de riesgo asignada.'),
+      .describe('Una justificación detallada y específica de la puntuación de riesgo, citando evidencia del texto.'),
   }),
   riskFactors: z
     .array(z.string())
-    .describe('Factores de riesgo específicos identificados en la conversación.'),
+    .describe('Factores de riesgo concretos y observables identificados en la conversación.'),
   topicCategories: z
     .array(z.string())
-    .describe('Categorías o temas discutidos en la conversación.'),
+    .describe('Categorías o temas principales discutidos en la conversación, identificados objetivamente.'),
   examples: z
     .array(z.string())
-    .describe('Ejemplos específicos de la conversación que resaltan los riesgos.'),
+    .describe('Citas directas y textuales de la conversación que ejemplifican los riesgos identificados.'),
   recommendations: z
     .string()
-    .describe('Recomendaciones para abordar los riesgos identificados.'),
+    .describe('Recomendaciones prácticas y empáticas, presentadas en un lenguaje claro y comprensible.'),
 });
 export type AnalyzeConversationRiskOutput = z.infer<typeof AnalyzeConversationRiskOutputSchema>;
 
@@ -54,22 +55,43 @@ const prompt = ai.definePrompt({
   name: 'analyzeConversationRiskPrompt',
   input: {schema: AnalyzeConversationRiskInputSchema},
   output: {schema: AnalyzeConversationRiskOutputSchema},
-  prompt: `Eres un experto en IA en analizar conversaciones para detectar posibles riesgos.
+  prompt: `Eres un psicólogo experto en dinámicas de comunicación y análisis del discurso, con la tarea de evaluar una conversación en busca de posibles riesgos de manipulación, abuso emocional o dinámicas tóxicas. Tu análisis debe ser exhaustivo, basado en evidencia y presentado de manera seria, profesional y empática. No hagas suposiciones; basa cada conclusión en el texto proporcionado.
 
-  Analiza la siguiente conversación en busca de posibles riesgos. Considera el contexto proporcionado, si lo hay.
+  **Conversación a Analizar:**
+  \`\`\`
+  {{{conversation}}}
+  \`\`\`
 
-  Conversación: {{{conversation}}}
+  **Contexto Adicional Proporcionado por el Usuario:**
+  \`\`\`
+  {{{context}}}
+  \`\`\`
 
-  Contexto: {{{context}}}
+  **Instrucciones Detalladas:**
 
-  Realiza las siguientes tareas:
-  1.  **Evaluación de Riesgo**: Proporciona una puntuación de riesgo del 1 (riesgo mínimo) al 10 (riesgo crítico) y una breve justificación de tu puntuación.
-  2.  **Factores de Riesgo**: Identifica factores de riesgo específicos.
-  3.  **Categorías de Temas**: Clasifica los temas discutidos.
-  4.  **Ejemplos**: Extrae ejemplos de la conversación que resalten los riesgos.
-  5.  **Recomendaciones**: Ofrece recomendaciones para abordar los riesgos.
+  1.  **Análisis Exhaustivo del Texto:**
+      *   Lee la conversación y el contexto cuidadosamente varias veces para comprender la dinámica, el tono y los patrones de interacción.
+      *   Identifica patrones de comunicación como la invalidación, el gaslighting, la culpa, el control, la crítica constante o la falta de reciprocidad.
+      *   Presta atención a la dinámica de poder y cómo se manifiesta en el lenguaje.
 
-  Formatea tu respuesta como un objeto JSON con la siguiente estructura.`,
+  2.  **Evaluación de Riesgo Precisa (Puntuación y Justificación):**
+      *   Asigna una puntuación de riesgo del 1 (muy bajo) al 10 (muy alto).
+      *   Tu justificación debe ser el núcleo de tu análisis. No te limites a decir "el riesgo es alto por manipulación". Explica **por qué** y **cómo**, citando fragmentos específicos del texto. Por ejemplo: "La puntuación es 8, indicando un riesgo alto. Esto se basa en repetidos instances de invalidación, como cuando la Persona A dice 'estás exagerando' después de que la Persona B expresara sus sentimientos (línea 15), lo que minimiza la experiencia emocional del otro."
+
+  3.  **Identificación de Factores de Riesgo Específicos:**
+      *   En lugar de términos genéricos, usa descriptores concretos. Por ejemplo, en lugar de "Mala comunicación", usa "Comunicación pasivo-agresiva" o "Invalidación de sentimientos".
+      *   Cada factor de riesgo debe ser directamente observable en el texto.
+
+  4.  **Extracción de Ejemplos Textuales:**
+      *   Selecciona citas directas y potentes que ilustren claramente los factores de riesgo que has identificado. Estos ejemplos son la evidencia que respalda tu análisis. No los parafrasees.
+
+  5.  **Redacción de Recomendaciones Claras y Humanas:**
+      *   Ofrece consejos prácticos y accionables.
+      *   Utiliza un lenguaje claro, directo y empático. Evita la jerga psicológica. El objetivo es que la persona se sienta comprendida y empoderada, no juzgada.
+      *   Puedes estructurar las recomendaciones en puntos para facilitar la lectura. Por ejemplo: "Considera establecer límites claros" o "Practica la comunicación asertiva usando frases en primera persona".
+
+  **Formato de Salida:**
+  Tu respuesta final debe ser un objeto JSON que se adhiera estrictamente a la estructura definida. Asegúrate de que cada campo esté completo y refleje la seriedad y profundidad de tu análisis.`,
 });
 
 const analyzeConversationRiskFlow = ai.defineFlow(
@@ -77,6 +99,9 @@ const analyzeConversationRiskFlow = ai.defineFlow(
     name: 'analyzeConversationRiskFlow',
     inputSchema: AnalyzeConversationRiskInputSchema,
     outputSchema: AnalyzeConversationRiskOutputSchema,
+    config: {
+      model: googleAI.model('gemini-2.5-pro'),
+    }
   },
   async input => {
     const {output} = await prompt(input);

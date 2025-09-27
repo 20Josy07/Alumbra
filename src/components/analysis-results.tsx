@@ -137,13 +137,16 @@ export function AnalysisResults({
         <CardHeader>
           <CardTitle className="flex items-center text-xl">
             <Sparkles className="mr-3 h-5 w-5 text-primary" />
-            Recomendaciones de la IA
+            Recomendaciones
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="whitespace-pre-wrap font-sans text-base text-foreground">
-            {results.recommendations}
-          </p>
+          <div
+            className="prose prose-sm max-w-none text-foreground dark:prose-invert"
+            dangerouslySetInnerHTML={{
+              __html: results.recommendations.replace(/\n/g, '<br />'),
+            }}
+          />
         </CardContent>
       </Card>
     </div>
