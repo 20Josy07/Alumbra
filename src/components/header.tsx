@@ -16,6 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import Image from 'next/image';
 
 const navLinks = [
   { name: 'Cómo Funciona', href: '/#how-it-works' },
@@ -46,7 +47,7 @@ export function Header() {
     <header className="fixed inset-x-0 top-4 z-50 mx-auto max-w-4xl">
       <div className="container mx-auto flex h-16 items-center justify-between rounded-full bg-background/80 px-4 backdrop-blur-sm border border-border/50 shadow-lg">
         <Link href="/" className="flex items-center gap-2">
-          <BrainCircuit className="h-6 w-6 text-primary" />
+          <Image src="https://i.postimg.cc/QCys4Rbt/favicon-light.png" alt="Alumbra logo" width={24} height={24} />
           <span className="sr-only">Alumbra</span>
         </Link>
         <nav className="hidden items-center space-x-6 md:flex">
@@ -150,7 +151,7 @@ export function Header() {
               <div className="flex h-full flex-col">
                 <div className="flex items-center justify-between border-b pb-4">
                   <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
-                    <BrainCircuit className="h-6 w-6 text-primary" />
+                    <Image src="https://i.postimg.cc/QCys4Rbt/favicon-light.png" alt="Alumbra logo" width={24} height={24} />
                   </Link>
                   <Button
                     variant="ghost"
