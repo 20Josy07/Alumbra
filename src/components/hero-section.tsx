@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Plus, Droplet, Diamond } from 'lucide-react';
+import { ScanText, BrainCircuit, Lightbulb } from 'lucide-react';
 
 export function HeroSection() {
   return (
@@ -45,22 +45,22 @@ export function HeroSection() {
             variant="outline"
             className="rounded-full border-[#f8d851]/50 bg-white/10 text-[#f8d851] hover:bg-white/20 backdrop-blur-sm group gap-2"
           >
-            <Plus className="w-5 h-5 text-[#f8d851] group-hover:rotate-90 transition-transform duration-300" />
-            detecta
+            <ScanText className="w-5 h-5 text-[#f8d851] group-hover:scale-110 transition-transform duration-300" />
+            Analiza
           </Button>
           <Button
             variant="outline"
             className="rounded-full border-[#f8d851]/50 bg-white/10 text-[#f8d851] hover:bg-white/20 backdrop-blur-sm group gap-2"
           >
-            <Droplet className="w-5 h-5 text-[#f8d851] group-hover:scale-110 transition-transform duration-300" />
-            procesa
+            <BrainCircuit className="w-5 h-5 text-[#f8d851] group-hover:scale-110 transition-transform duration-300" />
+            Identifica
           </Button>
           <Button
             variant="outline"
             className="rounded-full border-[#f8d851]/50 bg-white/10 text-[#f8d851] hover:bg-white/20 backdrop-blur-sm group gap-2"
           >
-            <Diamond className="w-5 h-5 text-[#f8d851] group-hover:rotate-45 transition-transform duration-300" />
-            aclara
+            <Lightbulb className="w-5 h-5 text-[#f8d851] group-hover:scale-110 transition-transform duration-300" />
+            Comprende
           </Button>
         </div>
 
