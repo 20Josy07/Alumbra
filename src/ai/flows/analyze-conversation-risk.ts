@@ -11,7 +11,6 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import {googleAI} from '@genkit-ai/googleai';
-import { sendNotificationEmailFlow } from './send-notification-email-flow';
 
 const AnalyzeConversationRiskInputSchema = z.object({
   conversation: z
@@ -107,15 +106,6 @@ const analyzeConversationRiskFlow = ai.defineFlow(
   },
   async (input) => {
     const { output } = await prompt(input);
-    if (output) {
-      if (output.riskAssessment.score >= 7 && input.emergencyEmail) {
-        // Do not wait for the email to be sent to return the analysis
-        sendNotificationEmailFlow({
-          email: input.emergencyEmail,
-          riskScore: output.riskAssessment.score,
-        }).catch(console.error);
-      }
-    }
     return output!;
   }
 );
