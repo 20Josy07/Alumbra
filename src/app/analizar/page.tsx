@@ -7,6 +7,7 @@ import { AnalysisSection } from '@/components/analysis-section';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export default function AnalizarPage() {
   const [context, setContext] = useState<string | null>(null);
@@ -39,23 +40,39 @@ export default function AnalizarPage() {
       </header>
 
       <div className="mt-12">
-        {!context ? (
-          <ContextForm onSubmit={handleContextSubmit} />
-        ) : (
-          <div>
-            <div className="mb-6 flex items-start justify-between">
-              <div>
-                <h3 className="font-semibold text-lg">Contexto Proporcionado:</h3>
-                <p className="text-muted-foreground italic">"{context}"</p>
+        <AnimatePresence mode="wait">
+          {!context ? (
+            <motion.div
+              key="form"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <ContextForm onSubmit={handleContextSubmit} />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="analysis"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="mb-6 flex items-start justify-between">
+                <div>
+                  <h3 className="font-semibold text-lg">Contexto Proporcionado:</h3>
+                  <p className="text-muted-foreground italic">"{context}"</p>
+                </div>
+                <Button variant="outline" size="sm" onClick={handleReset}>
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  Cambiar Contexto
+                </Button>
               </div>
-              <Button variant="outline" size="sm" onClick={handleReset}>
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Cambiar Contexto
-              </Button>
-            </div>
-            <AnalysisSection context={context} />
-          </div>
-        )}
+              <AnalysisSection context={context} />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+'use client';
 import type { AnalyzeConversationRiskOutput } from '@/ai/flows/analyze-conversation-risk';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,6 +12,7 @@ import {
   Activity,
 } from 'lucide-react';
 import { Progress } from './ui/progress';
+import { motion } from 'framer-motion';
 
 const getRiskDetails = (
   score: number
@@ -44,61 +46,87 @@ const getRiskDetails = (
   };
 };
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
+
 export function AnalysisResults({
   results,
 }: {
   results: AnalyzeConversationRiskOutput;
 }) {
-  const riskDetails = getRiskDetails(
-    results.riskAssessment.score
-  );
+  const riskDetails = getRiskDetails(results.riskAssessment.score);
 
   const formatRecommendations = (recommendations: string) => {
     const parts = recommendations.split(/\d+\.\s/);
     const introduction = parts[0].trim();
-    const listItems = recommendations.match(/\d+\.\s\*\*.*?(?=\d+\.\s\*\*|$)/gs) || [];
+    const listItems =
+      recommendations.match(/\d+\.\s\*\*.*?(?=\d+\.\s\*\*|$)/gs) || [];
 
     return {
       introduction,
-      listItems: listItems.map(item => {
+      listItems: listItems.map((item) => {
         const titleMatch = item.match(/\d+\.\s\*\*(.*?)\*\*/);
         const title = titleMatch ? titleMatch[1] : '';
         const description = item.replace(/\d+\.\s\*\*(.*?)\*\*/, '').trim();
         return { title, description };
-      })
+      }),
     };
   };
 
   const formattedRecommendations = formatRecommendations(results.recommendations);
 
-
   return (
-    <div className="mt-8 grid gap-6">
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center text-2xl">
-            <Activity className="mr-3 h-6 w-6" />
-            Evaluación de Riesgo
-          </CardTitle>
-          <p className="text-muted-foreground pt-1">
-            {results.riskAssessment.justification}
-          </p>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div
-            className={`flex items-center text-2xl font-bold ${riskDetails.textColor}`}
-          >
-            {riskDetails.icon}
-            {results.riskAssessment.score} / 10 - {riskDetails.level}
-          </div>
-          <Progress
-            value={results.riskAssessment.score * 10}
-            indicatorClassName={riskDetails.progressColor}
-          />
-        </CardContent>
-      </Card>
+    <motion.div
+      className="mt-8 grid gap-6"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <motion.div variants={itemVariants}>
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center text-2xl">
+              <Activity className="mr-3 h-6 w-6" />
+              Evaluación de Riesgo
+            </CardTitle>
+            <p className="pt-1 text-muted-foreground">
+              {results.riskAssessment.justification}
+            </p>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div
+              className={`flex items-center text-2xl font-bold ${riskDetails.textColor}`}
+            >
+              {riskDetails.icon}
+              {results.riskAssessment.score} / 10 - {riskDetails.level}
+            </div>
+            <Progress
+              value={results.riskAssessment.score * 10}
+              indicatorClassName={riskDetails.progressColor}
+            />
+          </CardContent>
+        </Card>
+      </motion.div>
 
-      <div className="grid gap-6 md:grid-cols-2">
+      <motion.div
+        className="grid gap-6 md:grid-cols-2"
+        variants={itemVariants}
+      >
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center">
@@ -131,48 +159,52 @@ export function AnalysisResults({
             ))}
           </CardContent>
         </Card>
-      </div>
+      </motion.div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center">
-            <Quote className="mr-3 h-5 w-5 text-primary" />
-            Ejemplos Destacados
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {results.examples.map((example, index) => (
-            <blockquote
-              key={index}
-              className="border-l-4 border-accent bg-muted/50 p-3 italic text-muted-foreground"
-            >
-              "{example}"
-            </blockquote>
-          ))}
-        </CardContent>
-      </Card>
+      <motion.div variants={itemVariants}>
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center">
+              <Quote className="mr-3 h-5 w-5 text-primary" />
+              Ejemplos Destacados
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {results.examples.map((example, index) => (
+              <blockquote
+                key={index}
+                className="border-l-4 border-accent bg-muted/50 p-3 italic text-muted-foreground"
+              >
+                "{example}"
+              </blockquote>
+            ))}
+          </CardContent>
+        </Card>
+      </motion.div>
 
-      <Card className="border-primary bg-primary/5">
-        <CardHeader>
-          <CardTitle className="flex items-center text-xl">
-            <Sparkles className="mr-3 h-5 w-5 text-primary" />
-            Recomendaciones
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="prose prose-sm max-w-none text-foreground dark:prose-invert">
-          <p>{formattedRecommendations.introduction}</p>
-          {formattedRecommendations.listItems.length > 0 && (
-            <ol className="mt-4 space-y-3 pl-5">
-              {formattedRecommendations.listItems.map((item, index) => (
-                <li key={index}>
-                  <strong className="font-semibold">{item.title}:</strong>{' '}
-                  {item.description}
-                </li>
-              ))}
-            </ol>
-          )}
-        </CardContent>
-      </Card>
-    </div>
+      <motion.div variants={itemVariants}>
+        <Card className="border-primary bg-primary/5">
+          <CardHeader>
+            <CardTitle className="flex items-center text-xl">
+              <Sparkles className="mr-3 h-5 w-5 text-primary" />
+              Recomendaciones
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="prose prose-sm max-w-none text-foreground dark:prose-invert">
+            <p>{formattedRecommendations.introduction}</p>
+            {formattedRecommendations.listItems.length > 0 && (
+              <ol className="mt-4 space-y-3 pl-5">
+                {formattedRecommendations.listItems.map((item, index) => (
+                  <li key={index}>
+                    <strong className="font-semibold">{item.title}:</strong>{' '}
+                    {item.description}
+                  </li>
+                ))}
+              </ol>
+            )}
+          </CardContent>
+        </Card>
+      </motion.div>
+    </motion.div>
   );
 }

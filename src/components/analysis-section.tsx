@@ -20,6 +20,8 @@ import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 import type { AnalyzeConversationRiskOutput } from '@/ai/flows/analyze-conversation-risk';
 import { Card, CardContent } from './ui/card';
+import { AnimatePresence, motion } from 'framer-motion';
+
 
 const formSchema = z.object({
   conversation: z
@@ -105,15 +107,27 @@ export function AnalysisSection({ context }: { context: string }) {
       </Card>
 
       <div className="mx-auto mt-12 max-w-3xl">
+        <AnimatePresence>
         {isPending && (
-          <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-12 text-center">
-            <Loader2 className="h-12 w-12 animate-spin text-primary" />
+          <motion.div 
+            className="flex flex-col items-center justify-center rounded-lg border border-dashed p-12 text-center"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+          >
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+            >
+              <Loader2 className="h-12 w-12 text-primary" />
+            </motion.div>
             <p className="mt-4 text-lg font-semibold">
               La IA está analizando tu texto...
             </p>
             <p className="text-muted-foreground">Esto puede tardar un momento.</p>
-          </div>
+          </motion.div>
         )}
+        </AnimatePresence>
         {result && <AnalysisResults results={result} />}
       </div>
     </div>

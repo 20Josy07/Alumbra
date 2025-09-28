@@ -4,6 +4,7 @@ import {Header} from '@/components/header';
 import {Footer} from '@/components/footer';
 import {Toaster} from '@/components/ui/toaster';
 import {AuthProvider} from '@/hooks/use-auth';
+import { PageTransition } from '@/components/page-transition';
 
 export const metadata: Metadata = {
   title: {
@@ -40,7 +41,9 @@ export default function RootLayout({
       <body className="flex min-h-screen flex-col bg-background font-body text-foreground antialiased">
         <AuthProvider>
           <Header />
-          <main className="flex-grow">{children}</main>
+          <PageTransition>
+            <main className="flex-grow">{children}</main>
+          </PageTransition>
           <Footer />
           <Toaster />
         </AuthProvider>

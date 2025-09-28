@@ -1,4 +1,3 @@
-
 'use client';
 import { Card, CardContent } from '@/components/ui/card';
 import {
@@ -13,12 +12,34 @@ import { Quote, Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { db } from '@/lib/firebase';
 import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
+import { motion } from 'framer-motion';
 
 type Testimonial = {
   name: string;
   title: string;
   comment: string;
   photoURL: string;
+};
+
+const containerVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: 'easeOut',
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
 };
 
 export function TestimonialsSection() {
@@ -52,24 +73,40 @@ export function TestimonialsSection() {
   }, []);
 
   return (
-    <section className="bg-transparent py-20 md:py-32">
+    <motion.section
+      id="testimonials"
+      className="bg-transparent py-20 md:py-32"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={containerVariants}
+    >
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="font-headline text-3xl font-bold tracking-tight md:text-4xl">
+          <motion.h2
+            variants={itemVariants}
+            className="font-headline text-3xl font-bold tracking-tight md:text-4xl"
+          >
             Lo que Nuestros Usuarios Dicen
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
+          </motion.h2>
+          <motion.p
+            variants={itemVariants}
+            className="mt-4 text-lg text-muted-foreground"
+          >
             Descubre cómo Alumbra está marcando la diferencia en la comunicación.
-          </p>
+          </motion.p>
         </div>
         {loading ? (
-            <div className="flex justify-center items-center h-64">
-                <Loader2 className="h-12 w-12 animate-spin text-primary" />
-            </div>
+          <div className="flex justify-center items-center h-64">
+            <Loader2 className="h-12 w-12 animate-spin text-primary" />
+          </div>
         ) : testimonials.length === 0 ? (
-            <div className="text-center mt-12 text-muted-foreground">
-                <p>Aún no hay comentarios. ¡Sé el primero en dejar uno!</p>
-            </div>
+          <motion.div
+            variants={itemVariants}
+            className="text-center mt-12 text-muted-foreground"
+          >
+            <p>Aún no hay comentarios. ¡Sé el primero en dejar uno!</p>
+          </motion.div>
         ) : (
           <Carousel
             opts={{
@@ -84,9 +121,9 @@ export function TestimonialsSection() {
                   key={index}
                   className="md:basis-1/2 lg:basis-1/2"
                 >
-                  <div className="p-4">
-                    <Card className="h-full">
-                      <CardContent className="flex h-full flex-col justify-between p-6">
+                  <motion.div className="p-4 h-full" variants={itemVariants}>
+                    <Card className="h-full flex flex-col transform-gpu transition-transform duration-300 hover:scale-105">
+                      <CardContent className="flex flex-1 flex-col justify-between p-6">
                         <Quote className="h-8 w-8 text-accent-foreground" />
                         <p className="my-4 flex-grow text-base text-muted-foreground">
                           "{testimonial.comment}"
@@ -107,7 +144,7 @@ export function TestimonialsSection() {
                         </div>
                       </CardContent>
                     </Card>
-                  </div>
+                  </motion.div>
                 </CarouselItem>
               ))}
             </CarouselContent>
@@ -116,6 +153,6 @@ export function TestimonialsSection() {
           </Carousel>
         )}
       </div>
-    </section>
+    </motion.section>
   );
 }

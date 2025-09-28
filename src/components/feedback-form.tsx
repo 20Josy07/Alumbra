@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -23,6 +22,7 @@ import { useAuth } from '@/hooks/use-auth';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { motion } from 'framer-motion';
 
 const formSchema = z.object({
   title: z.string().min(2, 'El cargo debe tener al menos 2 caracteres.'),
@@ -30,6 +30,18 @@ const formSchema = z.object({
     .string()
     .min(10, 'El comentario debe tener al menos 10 caracteres.'),
 });
+
+const containerVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: 'easeOut'
+    },
+  },
+};
 
 export function FeedbackForm() {
   const { toast } = useToast();
@@ -83,7 +95,14 @@ export function FeedbackForm() {
   };
 
   return (
-    <section id="feedback" className="bg-transparent py-20 md:py-32">
+    <motion.section
+      id="feedback"
+      className="bg-transparent py-20 md:py-32"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={containerVariants}
+    >
       <div className="container mx-auto max-w-3xl px-4">
         <Card className="mx-auto shadow-lg">
           <CardHeader>
@@ -147,19 +166,23 @@ export function FeedbackForm() {
                     </div>
                   
                   <div className="flex flex-col-reverse sm:flex-row gap-2 items-center">
-                    <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        onClick={logout}
-                        className="w-full sm:w-auto"
-                    >
-                        <LogOut className="mr-2 h-4 w-4" />
-                        Cerrar sesión
-                    </Button>
-                    <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-                        {isSubmitting ? 'Enviando...' : 'Enviar Comentario'} <Send className="ml-2 h-4 w-4" />
-                    </Button>
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
+                        <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            onClick={logout}
+                            className="w-full"
+                        >
+                            <LogOut className="mr-2 h-4 w-4" />
+                            Cerrar sesión
+                        </Button>
+                    </motion.div>
+                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className='w-full'>
+                        <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+                            {isSubmitting ? 'Enviando...' : 'Enviar Comentario'} <Send className="ml-2 h-4 w-4" />
+                        </Button>
+                    </motion.div>
                   </div>
                 </form>
               </Form>
@@ -167,15 +190,17 @@ export function FeedbackForm() {
             ) : (
               <div className="text-center">
                 <p className="mb-4 text-muted-foreground">Para dejar un comentario, por favor, inicia sesión.</p>
-                <Button onClick={signInWithGoogle} size="lg">
-                  <LogIn className="mr-2 h-5 w-5" />
-                  Iniciar Sesión con Google
-                </Button>
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button onClick={signInWithGoogle} size="lg">
+                        <LogIn className="mr-2 h-5 w-5" />
+                        Iniciar Sesión con Google
+                    </Button>
+                </motion.div>
               </div>
             )}
           </CardContent>
         </Card>
       </div>
-    </section>
+    </motion.section>
   );
 }

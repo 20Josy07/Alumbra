@@ -1,4 +1,3 @@
-
 import { BenefitsSection } from '@/components/benefits-section';
 import { FeedbackForm } from '@/components/feedback-form';
 import { HeroSection } from '@/components/hero-section';
