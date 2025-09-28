@@ -45,7 +45,7 @@ const AnalyzeConversationRiskOutputSchema = z.object({
     .describe('Citas directas y textuales de la conversación que ejemplifican los riesgos identificados.'),
   recommendations: z
     .string()
-    .describe('Recomendaciones prácticas y empáticas, presentadas en un lenguaje claro y comprensible.'),
+    .describe('Recomendaciones prácticas y empáticas, presentadas en un lenguaje claro y comprensible. Debe ser una introducción seguida de una lista numerada.'),
 });
 export type AnalyzeConversationRiskOutput = z.infer<typeof AnalyzeConversationRiskOutputSchema>;
 
@@ -90,7 +90,7 @@ const prompt = ai.definePrompt({
   5.  **Redacción de Recomendaciones Claras y Humanas:**
       *   Ofrece consejos prácticos y accionables.
       *   Utiliza un lenguaje claro, directo y empático. Evita la jerga psicológica. El objetivo es que la persona se sienta comprendida y empoderada, no juzgada.
-      *   Puedes estructurar las recomendaciones en puntos para facilitar la lectura. Por ejemplo: "Considera establecer límites claros" o "Practica la comunicación asertiva usando frases en primera persona".
+      *   Estructura las recomendaciones con una breve introducción, seguida de una lista numerada de pasos o consejos. Por ejemplo: "Es crucial reconocer que... Aquí hay algunas recomendaciones:\n1. **Establece límites claros:** ...\n2. **Practica la comunicación asertiva:** ...".
 
   **Formato de Salida:**
   Tu respuesta final debe ser un objeto JSON que se adhiera estrictamente a la estructura definida. Asegúrate de que cada campo esté completo y refleje la seriedad y profundidad de tu análisis.`,
