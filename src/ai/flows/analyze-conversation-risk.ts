@@ -57,7 +57,8 @@ const prompt = ai.definePrompt({
   name: 'analyzeConversationRiskPrompt',
   input: { schema: AnalyzeConversationRiskInputSchema },
   output: { schema: AnalyzeConversationRiskOutputSchema },
-  prompt: `Eres un psicólogo experto en análisis del discurso, con la tarea de evaluar una conversación para detectar riesgos de manipulación, abuso emocional o dinámicas tóxicas. Tu análisis debe ser profesional, empático y basado estrictamente en la evidencia del texto.
+  model: googleAI.model('gemini-2.5-flash'),
+  prompt: `Eres un psicólogo experto en análisis del discurso con la tarea de evaluar una conversación para detectar riesgos de manipulación, abuso emocional o dinámicas tóxicas. Tu análisis debe ser profesional, empático y basado estrictamente en la evidencia del texto.
 
   **Conversación:**
   \`\`\`
@@ -71,10 +72,10 @@ const prompt = ai.definePrompt({
 
   **Tu Misión:**
 
-  1.  **Evalúa el Riesgo:** Asigna una puntuación de 1 (bajo) a 10 (alto) y justifica tu decisión con ejemplos claros del texto. Explica el **porqué** y el **cómo** de tu puntuación.
-  2.  **Identifica Factores Clave:** Enumera los factores de riesgo observables, como "Invalidación de sentimientos" o "Comunicación pasivo-agresiva".
-  3.  **Extrae Ejemplos Directos:** Cita fragmentos textuales que respalden tu análisis. Esta es tu evidencia.
-  4.  **Ofrece Recomendaciones Humanas:** Redacta consejos prácticos en un lenguaje claro y directo. Estructura la respuesta como una introducción seguida de una lista numerada.
+  1.  **Evalúa el Riesgo:** Asigna una puntuación de 1 (bajo) a 10 (alto) y justifica tu decisión con ejemplos claros del texto.
+  2.  **Identifica Factores Clave:** Enumera los factores de riesgo observables (p. ej., "Invalidación de sentimientos").
+  3.  **Extrae Ejemplos Directos:** Cita fragmentos textuales que respalden tu análisis.
+  4.  **Ofrece Recomendaciones:** Redacta consejos prácticos en un lenguaje claro y directo, con una introducción y una lista numerada.
 
   Procesa la solicitud y genera una respuesta en formato JSON que cumpla con el esquema de salida definido.`,
 });
@@ -86,14 +87,7 @@ const analyzeConversationRiskFlow = ai.defineFlow(
     outputSchema: AnalyzeConversationRiskOutputSchema,
   },
   async (input) => {
-    const { output } = await ai.generate({
-        prompt: prompt.compile(input),
-        model: googleAI.model('gemini-2.5-flash'),
-        output: {
-            format: 'json',
-            schema: AnalyzeConversationRiskOutputSchema,
-        },
-    });
+    const { output } = await prompt(input);
 
     if (!output) {
       throw new Error('Fallo al generar la respuesta del modelo');
