@@ -102,7 +102,7 @@ const analyzeConversationRiskFlow = ai.defineFlow(
     inputSchema: AnalyzeConversationRiskInputSchema,
     outputSchema: AnalyzeConversationRiskOutputSchema,
     config: {
-      model: googleAI.model('gemini-2.5-pro'),
+      model: googleAI.model('gemini-2.5-flash'),
     }
   },
   async (input) => {
