@@ -1,3 +1,4 @@
+
 'use client';
 
 import { motion } from 'framer-motion';
@@ -44,7 +45,7 @@ export function InteractiveDemoSection() {
   return (
     <motion.section
       id="interactive-demo"
-      className="py-20 md:py-32 bg-background text-white"
+      className="py-20 md:py-32 bg-transparent text-white"
       variants={containerVariants}
       initial="hidden"
       whileInView="visible"

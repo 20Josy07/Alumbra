@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ClipboardPaste, Bot, Search, Lightbulb } from 'lucide-react';
 
@@ -30,7 +31,7 @@ const steps = [
 
 export function HowItWorksSection() {
   return (
-    <section id="how-it-works" className="py-20 md:py-32 bg-background">
+    <section id="how-it-works" className="py-20 md:py-32 bg-transparent">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="font-headline text-3xl font-bold tracking-tight md:text-4xl">

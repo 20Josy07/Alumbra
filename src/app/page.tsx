@@ -10,10 +10,10 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <HeroSection />
-      <HowItWorksSection />
-      <BenefitsSection />
-      <InteractiveDemoSection />
       <div className="bg-gradient-to-b from-[#30193e] to-[#0b011d]">
+        <HowItWorksSection />
+        <BenefitsSection />
+        <InteractiveDemoSection />
         <TestimonialsSection />
         <FeedbackForm />
       </div>
