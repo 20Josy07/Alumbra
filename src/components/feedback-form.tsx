@@ -82,7 +82,7 @@ export function FeedbackForm() {
   };
 
   return (
-    <section id="feedback" className="bg-background py-20 md:py-32">
+    <section id="feedback" className="bg-transparent py-20 md:py-32">
       <div className="container mx-auto max-w-3xl px-4">
         <Card className="mx-auto shadow-lg">
           <CardHeader>

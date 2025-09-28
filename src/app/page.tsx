@@ -1,3 +1,4 @@
+
 import { BenefitsSection } from '@/components/benefits-section';
 import { FeedbackForm } from '@/components/feedback-form';
 import { HeroSection } from '@/components/hero-section';
@@ -12,8 +13,10 @@ export default function Home() {
       <HowItWorksSection />
       <BenefitsSection />
       <InteractiveDemoSection />
-      <TestimonialsSection />
-      <FeedbackForm />
+      <div className="bg-gradient-to-b from-[#30193e] to-[#0b011d]">
+        <TestimonialsSection />
+        <FeedbackForm />
+      </div>
     </div>
   );
 }
