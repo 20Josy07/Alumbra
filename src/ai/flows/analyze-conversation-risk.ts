@@ -86,10 +86,19 @@ const analyzeConversationRiskFlow = ai.defineFlow(
     outputSchema: AnalyzeConversationRiskOutputSchema,
   },
   async (input) => {
-    const { output } = await prompt(input);
-    return output!;
-  },
-  {
-    model: googleAI.model('gemini-2.5-flash'),
+    const { output } = await ai.generate({
+        prompt: prompt.compile(input),
+        model: googleAI.model('gemini-2.5-flash'),
+        output: {
+            format: 'json',
+            schema: AnalyzeConversationRiskOutputSchema,
+        },
+    });
+
+    if (!output) {
+      throw new Error('Fallo al generar la respuesta del modelo');
+    }
+
+    return output;
   }
 );
