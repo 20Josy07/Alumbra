@@ -95,7 +95,7 @@ export function HowItWorksSection() {
               </Card>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </motion.section>
   );
