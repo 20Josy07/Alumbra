@@ -32,9 +32,15 @@ const formSchema = z.object({
     .string()
     .min(1, 'El contexto es obligatorio.')
     .max(500, 'El contexto debe tener menos de 500 caracteres.'),
+  emergencyEmail: z.string().email().optional().or(z.literal('')),
 });
 
-export function AnalysisSection({ context }: { context: string }) {
+interface AnalysisSectionProps {
+  context: string;
+  emergencyEmail?: string;
+}
+
+export function AnalysisSection({ context, emergencyEmail }: AnalysisSectionProps) {
   const [isPending, startTransition] = useTransition();
   const [result, setResult] = useState<AnalyzeConversationRiskOutput | null>(
     null
@@ -46,6 +52,7 @@ export function AnalysisSection({ context }: { context: string }) {
     defaultValues: {
       conversation: '',
       context: context,
+      emergencyEmail: emergencyEmail || '',
     },
   });
 
@@ -61,6 +68,12 @@ export function AnalysisSection({ context }: { context: string }) {
         });
       } else if (data) {
         setResult(data);
+        if (data.riskAssessment.score >= 7 && values.emergencyEmail) {
+          toast({
+            title: 'Notificación de Emergencia Enviada',
+            description: `Se ha enviado una alerta a ${values.emergencyEmail} debido al alto riesgo detectado.`,
+          });
+        }
       }
     });
   };

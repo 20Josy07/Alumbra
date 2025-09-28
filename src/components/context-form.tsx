@@ -14,12 +14,15 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import Link from 'next/link';
 import { Checkbox } from './ui/checkbox';
+import type { ContextData } from '@/app/analizar/page';
 
 const formSchema = z.object({
+  emergencyEmail: z.string().email({ message: "Por favor, introduce un correo electrónico válido." }).optional().or(z.literal('')),
   relationship: z.string().optional(),
   selfDoubt: z.string().optional(),
   control: z.string().optional(),
@@ -31,7 +34,7 @@ const formSchema = z.object({
 });
 
 type ContextFormProps = {
-  onSubmit: (context: string) => void;
+  onSubmit: (data: ContextData) => void;
 };
 
 const questions = [
@@ -67,6 +70,7 @@ export function ContextForm({ onSubmit }: ContextFormProps) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       privacyPolicy: false,
+      emergencyEmail: ''
     },
   });
 
@@ -82,7 +86,7 @@ export function ContextForm({ onSubmit }: ContextFormProps) {
       contextString = 'El usuario ha decidido no proporcionar contexto.';
     }
 
-    onSubmit(contextString);
+    onSubmit({ context: contextString, emergencyEmail: values.emergencyEmail });
   };
   
   const handleSkip = () => {
@@ -93,16 +97,16 @@ export function ContextForm({ onSubmit }: ContextFormProps) {
       });
       return;
     }
-    onSubmit('El usuario ha decidido no proporcionar contexto.');
+    onSubmit({ context: 'El usuario ha decidido no proporcionar contexto.', emergencyEmail: form.getValues('emergencyEmail') });
   }
 
   return (
     <Card className="mx-auto max-w-3xl shadow-lg">
       <Form {...form}>
         <CardHeader>
-          <CardTitle>Paso 1: Contexto de la Conversación (Opcional)</CardTitle>
+          <CardTitle>Paso 1: Contexto de la Conversación</CardTitle>
           <FormDescription>
-            Proporcionar un contexto claro ayuda a la IA a realizar un análisis más preciso. Puedes omitir este paso si lo prefieres.
+            Proporcionar un contexto claro ayuda a la IA a realizar un análisis más preciso.
           </FormDescription>
         </CardHeader>
         <CardContent className="p-6 pt-0">
@@ -110,6 +114,28 @@ export function ContextForm({ onSubmit }: ContextFormProps) {
             onSubmit={form.handleSubmit(handleFormSubmit)}
             className="space-y-8"
           >
+             <FormField
+                control={form.control}
+                name="emergencyEmail"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Contacto de Emergencia (Opcional)</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        placeholder="correo@ejemplo.com"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Si el análisis detecta un riesgo alto (7-10), se enviará una notificación a este correo.
+                      <strong className="block text-amber-600 dark:text-amber-500">No uses tu propio correo aquí.</strong>
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
             {questions.map((q) => (
               <FormField
                 key={q.name}
@@ -172,7 +198,7 @@ export function ContextForm({ onSubmit }: ContextFormProps) {
                 Siguiente
               </Button>
               <Button type="button" size="lg" variant="outline" className="w-full" onClick={handleSkip}>
-                Omitir
+                Omitir cuestionario
               </Button>
             </div>
           </form>

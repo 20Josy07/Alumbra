@@ -9,21 +9,27 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 
-export default function AnalizarPage() {
-  const [context, setContext] = useState<string | null>(null);
+export type ContextData = {
+  context: string;
+  emergencyEmail?: string;
+};
 
-  const handleContextSubmit = (submittedContext: string) => {
-    setContext(submittedContext);
+
+export default function AnalizarPage() {
+  const [contextData, setContextData] = useState<ContextData | null>(null);
+
+  const handleContextSubmit = (submittedData: ContextData) => {
+    setContextData(submittedData);
   };
 
   const handleReset = () => {
-    setContext(null);
+    setContextData(null);
   };
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-16 md:py-24">
       <header className="text-center relative">
-        {!context && (
+        {!contextData && (
            <Button asChild variant="outline" size="sm" className="absolute left-0 top-0">
              <Link href="/">
               <ArrowLeft className="mr-2 h-4 w-4" />
@@ -41,7 +47,7 @@ export default function AnalizarPage() {
 
       <div className="mt-12">
         <AnimatePresence mode="wait">
-          {!context ? (
+          {!contextData ? (
             <motion.div
               key="form"
               initial={{ opacity: 0, y: 20 }}
@@ -62,14 +68,19 @@ export default function AnalizarPage() {
               <div className="mb-6 flex items-start justify-between">
                 <div>
                   <h3 className="font-semibold text-lg">Contexto Proporcionado:</h3>
-                  <p className="text-muted-foreground italic">"{context}"</p>
+                  <p className="text-muted-foreground italic">"{contextData.context}"</p>
+                  {contextData.emergencyEmail && (
+                    <p className="text-sm text-muted-foreground mt-1">
+                      <span className='font-semibold'>Email de emergencia:</span> {contextData.emergencyEmail}
+                    </p>
+                  )}
                 </div>
                 <Button variant="outline" size="sm" onClick={handleReset}>
                   <ArrowLeft className="mr-2 h-4 w-4" />
                   Cambiar Contexto
                 </Button>
               </div>
-              <AnalysisSection context={context} />
+              <AnalysisSection context={contextData.context} emergencyEmail={contextData.emergencyEmail} />
             </motion.div>
           )}
         </AnimatePresence>

@@ -11,6 +11,7 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import {googleAI} from '@genkit-ai/googleai';
+import { sendNotificationEmailFlow } from './send-notification-email-flow';
 
 const AnalyzeConversationRiskInputSchema = z.object({
   conversation: z
@@ -20,6 +21,7 @@ const AnalyzeConversationRiskInputSchema = z.object({
     .string()
     .optional()
     .describe('Contexto opcional sobre la conversación.'),
+  emergencyEmail: z.string().optional().describe('Correo electrónico de contacto de emergencia para notificar en caso de riesgo alto.'),
 });
 export type AnalyzeConversationRiskInput = z.infer<typeof AnalyzeConversationRiskInputSchema>;
 
@@ -103,8 +105,17 @@ const analyzeConversationRiskFlow = ai.defineFlow(
       model: googleAI.model('gemini-2.5-pro'),
     }
   },
-  async input => {
-    const {output} = await prompt(input);
+  async (input) => {
+    const { output } = await prompt(input);
+    if (output) {
+      if (output.riskAssessment.score >= 7 && input.emergencyEmail) {
+        // Do not wait for the email to be sent to return the analysis
+        sendNotificationEmailFlow({
+          email: input.emergencyEmail,
+          riskScore: output.riskAssessment.score,
+        }).catch(console.error);
+      }
+    }
     return output!;
   }
 );

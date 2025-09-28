@@ -14,6 +14,7 @@ const formSchema = z.object({
     .string()
     .max(1000, 'El contexto debe tener menos de 1000 caracteres.')
     .optional(),
+  emergencyEmail: z.string().email().optional().or(z.literal('')),
 });
 
 export async function performAnalysis(input: AnalyzeConversationRiskInput) {
