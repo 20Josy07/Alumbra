@@ -9,9 +9,9 @@
  * - AnalyzeConversationRiskOutput - The return type for the analyzeConversationRisk function.
  */
 
-import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
-import {googleAI} from '@genkit-ai/googleai';
+import { ai } from '@/ai/genkit';
+import { z } from 'genkit';
+import { googleAI } from '@genkit-ai/googleai';
 
 const AnalyzeConversationRiskInputSchema = z.object({
   conversation: z
@@ -55,8 +55,8 @@ export async function analyzeConversationRisk(input: AnalyzeConversationRiskInpu
 
 const prompt = ai.definePrompt({
   name: 'analyzeConversationRiskPrompt',
-  input: {schema: AnalyzeConversationRiskInputSchema},
-  output: {schema: AnalyzeConversationRiskOutputSchema},
+  input: { schema: AnalyzeConversationRiskInputSchema },
+  output: { schema: AnalyzeConversationRiskOutputSchema },
   prompt: `Eres un psicólogo experto en análisis del discurso, con la tarea de evaluar una conversación para detectar riesgos de manipulación, abuso emocional o dinámicas tóxicas. Tu análisis debe ser profesional, empático y basado estrictamente en la evidencia del texto.
 
   **Conversación:**
@@ -84,12 +84,12 @@ const analyzeConversationRiskFlow = ai.defineFlow(
     name: 'analyzeConversationRiskFlow',
     inputSchema: AnalyzeConversationRiskInputSchema,
     outputSchema: AnalyzeConversationRiskOutputSchema,
-    config: {
-      model: googleAI.model('gemini-2.5-flash'),
-    }
   },
   async (input) => {
     const { output } = await prompt(input);
     return output!;
+  },
+  {
+    model: googleAI.model('gemini-2.5-flash'),
   }
 );
