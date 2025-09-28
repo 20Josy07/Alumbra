@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 const navLinks = [
   { name: 'Cómo Funciona', href: '/#how-it-works' },
@@ -77,10 +78,13 @@ export function Header() {
           })}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <button className='flex items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-primary'>
+                <motion.button 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className='flex items-center gap-1 text-sm font-medium text-muted-foreground transition-colors hover:text-primary'>
                     Recursos
                     <ChevronDown className="h-4 w-4" />
-                </button>
+                </motion.button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
                 {resourcesLinks.map(link => (
