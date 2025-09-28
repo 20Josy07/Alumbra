@@ -5,7 +5,7 @@ import { TestimonialsSection } from '@/components/testimonials-section';
 
 export default function Home() {
   return (
-    <div className="flex flex-col pt-16">
+    <div className="flex flex-col">
       <HeroSection />
       <HowItWorksSection />
       <TestimonialsSection />
