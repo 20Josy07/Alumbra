@@ -39,10 +39,10 @@ export function Header() {
   const isHome = pathname === '/';
 
   return (
-    <header className="fixed inset-x-0 bottom-4 z-50 mx-auto max-w-4xl">
+    <header className="fixed bottom-4 inset-x-0 z-50 mx-auto max-w-4xl">
       <div className="container mx-auto flex h-16 items-center justify-between rounded-full bg-background/80 px-4 backdrop-blur-sm border border-border/50 shadow-lg">
         <Link href="/" className="flex items-center gap-2">
-          <Image src="https://i.postimg.cc/QCys4Rbt/favicon-light.png" alt="Alumbra logo" width={32} height={32} />
+          <Image src="https://i.postimg.cc/59L8Lbsj/og-image.png" alt="Alumbra logo" width={32} height={32} />
           <span className="sr-only">Alumbra</span>
         </Link>
         <nav className="hidden items-center space-x-6 md:flex">
@@ -107,7 +107,7 @@ export function Header() {
               <div className="flex h-full flex-col">
                 <div className="flex items-center justify-between border-b pb-4">
                   <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
-                    <Image src="https://i.postimg.cc/QCys4Rbt/favicon-light.png" alt="Alumbra logo" width={32} height={32} />
+                    <Image src="https://i.postimg.cc/59L8Lbsj/og-image.png" alt="Alumbra logo" width={32} height={32} />
                   </Link>
                   <Button
                     variant="ghost"

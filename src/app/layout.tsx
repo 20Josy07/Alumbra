@@ -24,7 +24,7 @@ export default function RootLayout({
       <head>
         <link
           rel="icon"
-          href="https://i.postimg.cc/QCys4Rbt/favicon-light.png"
+          href="https://i.postimg.cc/59L8Lbsj/og-image.png"
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link

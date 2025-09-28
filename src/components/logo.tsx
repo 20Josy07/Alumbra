@@ -4,7 +4,7 @@ export function Logo() {
   return (
     <div className="flex items-center gap-2" aria-label="Alumbra logo">
       <Image
-        src="https://i.postimg.cc/QCys4Rbt/favicon-light.png"
+        src="https://i.postimg.cc/59L8Lbsj/og-image.png"
         alt="Alumbra logo"
         width={32}
         height={32}
