@@ -8,15 +8,13 @@ import { TestimonialsSection } from '@/components/testimonials-section';
 
 export default function Home() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-gradient-to-b from-[#30193e] to-[#0b011d]">
       <HeroSection />
-      <div className="bg-gradient-to-b from-[#30193e] to-[#0b011d]">
-        <HowItWorksSection />
-        <BenefitsSection />
-        <InteractiveDemoSection />
-        <TestimonialsSection />
-        <FeedbackForm />
-      </div>
+      <HowItWorksSection />
+      <BenefitsSection />
+      <InteractiveDemoSection />
+      <TestimonialsSection />
+      <FeedbackForm />
     </div>
   );
 }

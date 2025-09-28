@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -5,9 +6,9 @@ import { ScanText, BrainCircuit, Lightbulb } from 'lucide-react';
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#0f0a1e] text-center">
+    <section className="relative min-h-screen overflow-hidden bg-transparent text-center">
       {/* Fondo radial suave */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#24104f] via-[#140829] to-[#0f0a1e]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-transparent to-transparent" />
 
       {/* Partículas flotantes */}
       <div className="absolute inset-0">
