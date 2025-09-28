@@ -2,12 +2,6 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
-import { Resend } from 'resend';
-
-// NOTE: This is a placeholder for a real email sending service.
-// In a production environment, you would replace the console.log with a
-// call to a service like Resend, SendGrid, or AWS SES.
-// const resend = new Resend(process.env.RESEND_API_KEY);
 
 const SendEmailSchema = z.object({
     to: z.string().email(),
@@ -18,38 +12,38 @@ const SendEmailSchema = z.object({
 export const sendEmailTool = ai.defineTool(
     {
         name: 'sendEmail',
-        description: 'Sends an email to a specified recipient.',
+        description: 'Sends an email to a specified recipient using a Make.com webhook.',
         inputSchema: SendEmailSchema,
         outputSchema: z.void(),
     },
     async (input) => {
-        console.log('////////////////// SIMULATING EMAIL //////////////////');
-        console.log(`Sending email to: ${input.to}`);
-        console.log(`Subject: ${input.subject}`);
-        console.log(`Body: ${input.text}`);
-        console.log('////////////////////////////////////////////////////');
-        
-        // Example with Resend (uncomment when you have an API key)
-        /*
+        const webhookUrl = 'https://hook.us2.make.com/avb48q3eeobydo91dcod0af66sxwyjvs';
+
         try {
-            const { data, error } = await resend.emails.send({
-                from: 'Alumbra <noreply@yourdomain.com>',
-                to: [input.to],
-                subject: input.subject,
-                text: input.text,
+            const response = await fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    to: input.to,
+                    subject: input.subject,
+                    text: input.text,
+                }),
             });
 
-            if (error) {
-                console.error({ error });
-                // Depending on requirements, you might want to throw an error here
-                return;
+            if (!response.ok) {
+                const errorBody = await response.text();
+                throw new Error(`Webhook request failed with status ${response.status}: ${errorBody}`);
             }
 
-            console.log({ data });
+            console.log('Successfully sent email data to Make.com webhook.');
+
         } catch (error) {
-            console.error('Failed to send email:', error);
+            console.error('Failed to send email via webhook:', error);
             // Depending on requirements, you might want to throw an error here
+            // to let the calling flow know that the email failed to send.
+            throw new Error(`Failed to send email: ${error instanceof Error ? error.message : String(error)}`);
         }
-        */
     }
 );
